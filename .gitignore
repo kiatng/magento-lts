@@ -1,1 +1,4 @@
 /app/etc/local.xml
+.gitstrip
+git-remove
+git-strip-merge
