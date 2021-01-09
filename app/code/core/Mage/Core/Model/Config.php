@@ -121,7 +121,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Resource model
      * Used for operations with DB
      *
-     * @var Mage_Core_Model_Mysql4_Config
+     * @var Mage_Core_Model_Resource_Config
      */
     protected $_resourceModel;
 
@@ -1288,7 +1288,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
-        
+
         $className = trim($className);
 
         // Second - if entity is not rewritten then use class prefix to form class name
@@ -1380,7 +1380,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * Example:
      * $config->getModelInstance('catalog/product')
      *
-     * Will instantiate Mage_Catalog_Model_Mysql4_Product
+     * Will instantiate Mage_Catalog_Model_Resource_Product
      *
      * @param string $modelClass
      * @param array|object $constructArguments

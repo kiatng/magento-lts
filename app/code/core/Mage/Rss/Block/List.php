@@ -183,7 +183,7 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
         if((bool)Mage::getStoreConfig($path)){
             $category = Mage::getModel('catalog/category');
 
-            /* @var $collection Mage_Catalog_Model_Resource_Eav_Mysql4_Category_Collection */
+            /* @var $collection Mage_Catalog_Model_Resource_Category_Collection */
             $treeModel = $category->getTreeModel()->loadNode(Mage::app()->getStore()->getRootCategoryId());
             $nodes = $treeModel->loadChildren()->getChildren();
 
