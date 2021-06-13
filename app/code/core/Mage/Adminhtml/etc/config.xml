@@ -225,12 +225,6 @@
                 </input_types>
             </validator_data>
         </general>
-        <hints>
-            <store_switcher>
-                <url><![CDATA[http://merch.docs.magento.com/ce/user_guide/configuration/scope.html]]></url>
-                <enabled>1</enabled>
-            </store_switcher>
-        </hints>
         <help>
             <target_version>ce</target_version>
         </help>
@@ -238,6 +232,9 @@
             <design>
                 <use_legacy_theme>0</use_legacy_theme>
             </design>
+            <global_search>
+                <enable>1</enable>
+            </global_search>
         </admin>
     </default>
     <stores>
