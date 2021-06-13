@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -149,7 +149,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      */
     public function saveRates($rates)
     {
-        if (is_array($rates) && sizeof($rates) > 0) {
+        if (is_array($rates) && count($rates)) {
             $adapter = $this->_getWriteAdapter();
             $data    = array();
             foreach ($rates as $currencyCode => $rate) {
@@ -183,16 +183,22 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
      */
     public function getConfigCurrencies($model, $path)
     {
-        $adapter = $this->_getReadAdapter();
-        $bind    = array(':config_path' => $path);
-        $select  = $adapter->select()
-                ->from($this->getTable('core/config_data'))
-                ->where('path = :config_path');
-        $result  = array();
-        $rowSet  = $adapter->fetchAll($select, $bind);
-        foreach ($rowSet as $row) {
-            $result = array_merge($result, explode(',', $row['value']));
+        $result  = [];
+        $config = Mage::app()->getConfig();
+
+        // default
+        $result = array_merge($result, explode(',', trim($config->getNode($path, 'default'))));
+
+        // stores
+        foreach (Mage::app()->getStores(true) as $store) {
+            $result = array_merge($result, explode(',', trim($config->getNode($path, 'stores', $store->getCode()))));
         }
+
+        // websites
+        foreach (Mage::app()->getWebsites(true) as $website) {
+            $result = array_merge($result, explode(',', trim($config->getNode($path, 'websites', $website->getCode()))));
+        }
+
         sort($result);
 
         return array_unique($result);

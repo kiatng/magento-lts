@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Usa
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -146,7 +146,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
      * Prepare and set request to this instance
      *
      * @param Mage_Shipping_Model_Rate_Request $request
-     * @return Mage_Usa_Model_Shipping_Carrier_Usps
+     * @return $this
      */
     public function setRequest(Mage_Shipping_Model_Rate_Request $request)
     {
@@ -1357,7 +1357,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
 
         $packageWeight = $request->getPackageWeight();
         if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
-            $packageWeight = round(Mage::helper('usa')->convertMeasureWeight(
+            $packageWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                 $request->getPackageWeight(),
                 $packageParams->getWeightUnits(),
                 Zend_Measure_Weight::OUNCE
@@ -1449,7 +1449,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
         $packageParams = $request->getPackageParams();
         $packageWeight = $request->getPackageWeight();
         if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
-            $packageWeight = round(Mage::helper('usa')->convertMeasureWeight(
+            $packageWeight = round((float) Mage::helper('usa')->convertMeasureWeight(
                 $request->getPackageWeight(),
                 $packageParams->getWeightUnits(),
                 Zend_Measure_Weight::OUNCE
@@ -1535,24 +1535,24 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
             );
         }
         if ($packageParams->getDimensionUnits() != Zend_Measure_Length::INCH) {
-            $length = round(Mage::helper('usa')->convertMeasureDimension(
+            $length = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getLength(),
                 $packageParams->getDimensionUnits(),
                 Zend_Measure_Length::INCH
             ));
-            $width = round(Mage::helper('usa')->convertMeasureDimension(
+            $width = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getWidth(),
                 $packageParams->getDimensionUnits(),
                 Zend_Measure_Length::INCH
             ));
-            $height = round(Mage::helper('usa')->convertMeasureDimension(
+            $height = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getHeight(),
                 $packageParams->getDimensionUnits(),
                 Zend_Measure_Length::INCH
             ));
         }
         if ($packageParams->getGirthDimensionUnits() != Zend_Measure_Length::INCH) {
-            $girth = round(Mage::helper('usa')->convertMeasureDimension(
+            $girth = round((float) Mage::helper('usa')->convertMeasureDimension(
                 $packageParams->getGirth(),
                 $packageParams->getGirthDimensionUnits(),
                 Zend_Measure_Length::INCH
@@ -1956,7 +1956,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps
     }
 
     /**
-     * @deprecate
+     * @deprecated
      */
     public function getMethodLabel($value)
     {

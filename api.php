@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,12 +48,6 @@ if (!Mage::isInstalled()) {
     echo 'Application is not installed yet, please complete install wizard first.';
     exit;
 }
-
-if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
-    Mage::setIsDeveloperMode(true);
-}
-
-#ini_set('display_errors', 1);
 
 Mage::$headersSentThrowsException = false;
 Mage::init('admin');

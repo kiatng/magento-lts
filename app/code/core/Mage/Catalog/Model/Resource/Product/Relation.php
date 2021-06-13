@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
      *
      * @param int $parentId
      * @param array $childIds
-     * @return Mage_Catalog_Model_Resource_Product_Relation
+     * @return $this
      */
     public function processRelations($parentId, $childIds)
     {
@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
         }
         if (!empty($delete)) {
-            $where = join(' AND ', array(
+            $where = implode(' AND ', array(
                 $this->_getWriteAdapter()->quoteInto('parent_id = ?', $parentId),
                 $this->_getWriteAdapter()->quoteInto('child_id IN(?)', $delete)
             ));

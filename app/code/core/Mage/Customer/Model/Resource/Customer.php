@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Customer
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,9 +64,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Check customer scope, email and confirmation key before saving
      *
-     * @param Mage_Customer_Model_Customer $customer
-     * @throws Mage_Customer_Exception
-     * @return Mage_Customer_Model_Resource_Customer
+     * @param Varien_Object|Mage_Customer_Model_Customer $customer
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Varien_Object $customer)
     {
@@ -94,7 +94,8 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         $result = $adapter->fetchOne($select, $bind);
         if ($result) {
             throw Mage::exception(
-                'Mage_Customer', Mage::helper('customer')->__('This customer email already exists'),
+                'Mage_Customer',
+                Mage::helper('customer')->__('This customer email already exists'),
                 Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS
             );
         }
@@ -129,7 +130,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Save/delete customer address
      *
      * @param Mage_Customer_Model_Customer $customer
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     protected function _saveAddresses(Mage_Customer_Model_Customer $customer)
     {
@@ -174,9 +175,9 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     /**
      * Retrieve select object for loading base entity row
      *
-     * @param Varien_Object $object
+     * @param Mage_Customer_Model_Customer $object
      * @param mixed $rowId
-     * @return Varien_Db_Select
+     * @return Zend_Db_Select
      */
     protected function _getLoadRowSelect($object, $rowId)
     {
@@ -196,7 +197,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * @param Mage_Customer_Model_Customer $customer
      * @param string $email
      * @param bool $testOnly
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     public function loadByEmail(Mage_Customer_Model_Customer $customer, $email, $testOnly = false)
     {
@@ -231,7 +232,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param Mage_Customer_Model_Customer $customer
      * @param string $newPassword
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     public function changePassword(Mage_Customer_Model_Customer $customer, $newPassword)
     {
@@ -304,7 +305,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      * Custom setter of increment ID if its needed
      *
      * @param Varien_Object $object
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
     public function setNewIncrementId(Varien_Object $object)
     {
@@ -319,11 +320,12 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * Stores new reset password link token and its creation time
      *
-     * @param Mage_Customer_Model_Customer $newResetPasswordLinkToken
+     * @param Mage_Customer_Model_Customer $customer
      * @param string $newResetPasswordLinkToken
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      */
-    public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken) {
+    public function changeResetPasswordLinkToken(Mage_Customer_Model_Customer $customer, $newResetPasswordLinkToken)
+    {
         if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
             $customer->setRpToken($newResetPasswordLinkToken);
             $currentDate = Varien_Date::now();
@@ -341,7 +343,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      *
      * @param Mage_Customer_Model_Customer $customer
      * @param string $newResetPasswordLinkCustomerId
-     * @return Mage_Customer_Model_Resource_Customer
+     * @return $this
      * @throws Exception
      */
     public function changeResetPasswordLinkCustomerId(

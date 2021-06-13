@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
  
@@ -48,7 +48,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
     /**
      * Preparing layout
      *
-     * @return Mage_Catalog_Block_Breadcrumbs
+     * @inheritDoc
      */
     protected function _prepareLayout()
     {
@@ -68,7 +68,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
             }
 
             if ($headBlock = $this->getLayout()->getBlock('head')) {
-                $headBlock->setTitle(join($this->getTitleSeparator(), array_reverse($title)));
+                $headBlock->setTitle(implode($this->getTitleSeparator(), array_reverse($title)));
             }
         }
         return parent::_prepareLayout();

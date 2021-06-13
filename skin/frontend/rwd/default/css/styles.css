@@ -19,7 +19,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /*! normalize.css v2.0.1 | MIT License | git.io/normalize */
@@ -1218,7 +1218,6 @@ a.button:hover {
 }
 .btn-remove2:hover {
   background-color: transparent;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
 
@@ -7531,7 +7530,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 }
 .configurable-swatch-list .not-available .swatch-link.has-image img {
   opacity: 0.4;
-  filter: alpha(opacity=40);
 }
 .configurable-swatch-list .not-available .swatch-label {
   color: #aaa;
@@ -8911,7 +8909,6 @@ div.paypal-logo span > img {
 }
 .slideshow-prev.disabled,
 .slideshow-next.disabled {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
   cursor: default;
 }

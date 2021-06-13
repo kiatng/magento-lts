@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Install
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,29 +75,12 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Set data model to store data between installation steps
      *
      * @param Varien_Object $model
-     * @return Mage_Install_Model_Installer
+     * @return $this
      */
     public function setDataModel(Varien_Object $model)
     {
         $this->_dataModel = $model;
         return $this;
-    }
-
-    /**
-     * Check packages (pear) downloads
-     *
-     * @return boolean
-     */
-    public function checkDownloads()
-    {
-        try {
-            $result = Mage::getModel('install/installer_pear')->checkDownloads();
-            $result = true;
-        } catch (Exception $e) {
-            $result = false;
-        }
-        $this->setDownloadCheckStatus($result);
-        return $result;
     }
 
     /**
@@ -154,7 +137,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Database installation
      *
-     * @return Mage_Install_Model_Installer
+     * @return $this
      */
     public function installDb()
     {
@@ -305,7 +288,7 @@ class Mage_Install_Model_Installer extends Varien_Object
      * Set encryption key
      *
      * @param string $key
-     * @return Mage_Install_Model_Installer
+     * @return $this
      */
     public function installEnryptionKey($key)
     {

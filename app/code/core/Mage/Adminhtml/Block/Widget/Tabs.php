@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,7 +153,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Tab has to be not hidden and can show
      *
      * @param string $tabId
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     public function setActiveTab($tabId)
     {
@@ -173,7 +173,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Set Active Tab
      *
      * @param string $tabId
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     protected function _setActiveTab($tabId)
     {
@@ -189,6 +189,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
 
     protected function _beforeToHtml()
     {
+        Mage::dispatchEvent('adminhtml_block_widget_tabs_html_before', array('block' => $this));
         if ($activeTab = $this->getRequest()->getParam('active_tab')) {
             $this->setActiveTab($activeTab);
         } elseif ($activeTabId = Mage::getSingleton('admin/session')->getActiveTabId()) {
@@ -369,7 +370,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * @param string $tab
      * @param string $key
      * @param mixed $value
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     public function setTabData($tab, $key, $value)
     {
@@ -387,7 +388,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
      * Removes tab with passed id from tabs block
      *
      * @param string $tabId
-     * @return Mage_Adminhtml_Block_Widget_Tabs
+     * @return $this
      */
     public function removeTab($tabId)
     {

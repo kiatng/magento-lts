@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,12 +78,16 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getCreateDate()
     {
-        return $this->_getCoreHelper()->formatDate($this->getCustomer()->getCreatedAt(),
-            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
+        return ($date = $this->getCustomer()->getCreatedAt())
+            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
+            : null;
     }
 
     public function getStoreCreateDate()
     {
+        if ( ! $this->getCustomer()->getCreatedAt()) {
+            return null;
+        }
         $date = Mage::app()->getLocale()->storeDate(
             $this->getCustomer()->getStoreId(),
             $this->getCustomer()->getCreatedAtTimestamp(),
@@ -105,11 +109,9 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
      */
     public function getLastLoginDate()
     {
-        $date = $this->getCustomerLog()->getLoginAtTimestamp();
-        if ($date) {
-            return Mage::helper('core')->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
-        }
-        return Mage::helper('customer')->__('Never');
+        return ($date = $this->getCustomerLog()->getLoginAtTimestamp())
+            ? $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true, false)
+            : Mage::helper('customer')->__('Never');
     }
 
     public function getStoreLastLoginDate()
@@ -212,6 +214,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View
     }
 
     /**
+     * @deprecated
      * Return instance of core helper
      *
      * @return Mage_Core_Helper_Data

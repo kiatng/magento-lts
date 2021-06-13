@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Index
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -84,7 +84,7 @@ class Mage_Index_Model_Lock
     /**
      * Get lock singleton instance
      *
-     * @return Mage_Index_Model_Lock
+     * @return $this
      */
     public static function getInstance()
     {
@@ -139,9 +139,19 @@ class Mage_Index_Model_Lock
     protected function _setLockFile($lockName, $block = false)
     {
         if ($block) {
-            $result = flock($this->_getLockFile($lockName), LOCK_EX);
+            try {
+                $result = flock($this->_getLockFile($lockName), LOCK_EX);
+            } catch(Exception $e) {
+                Mage::logException($e);
+                throw $e;
+            }            
         } else {
-            $result = flock($this->_getLockFile($lockName), LOCK_EX | LOCK_NB);
+            try {
+                $result = flock($this->_getLockFile($lockName), LOCK_EX | LOCK_NB);
+            } catch(Exception $e) {
+                Mage::logException($e);
+                throw $e;
+            }
         }
         if ($result) {
             self::$_lockFile[$lockName] = $lockName;
@@ -238,10 +248,16 @@ class Mage_Index_Model_Lock
     {
         $result = true;
         $fp = $this->_getLockFile($lockName);
-        if (flock($fp, LOCK_EX | LOCK_NB)) {
-            flock($fp, LOCK_UN);
-            $result = false;
+        try {
+            if (flock($fp, LOCK_EX | LOCK_NB)) {
+                flock($fp, LOCK_UN);
+                $result = false;
+            }
+        } catch(Exception $e) {
+            Mage::logException($e);
+            throw $e;
         }
+        
         return $result;
     }
 

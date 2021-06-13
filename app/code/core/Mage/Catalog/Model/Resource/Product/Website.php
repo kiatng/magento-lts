@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Catalog
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,23 +58,22 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return Mage_Catalog_Model_Resource_Product_Website
+     * @return $this
      * @throws Exception
      */
     public function removeProducts($websiteIds, $productIds)
     {
         if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0)
-        {
+            || count($websiteIds) == 0 || count($productIds) == 0) {
             return $this;
         }
 
         $adapter   = $this->_getWriteAdapter();
         $whereCond = array(
             $adapter->quoteInto('website_id IN(?)', $websiteIds),
-           $adapter->quoteInto('product_id IN(?)', $productIds)
+            $adapter->quoteInto('product_id IN(?)', $productIds)
         );
-        $whereCond = join(' AND ', $whereCond);
+        $whereCond = implode(' AND ', $whereCond);
 
         $adapter->beginTransaction();
         try {
@@ -93,14 +92,13 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
      *
      * @param array $websiteIds
      * @param array $productIds
-     * @return Mage_Catalog_Model_Resource_Product_Website
+     * @return $this
      * @throws Exception
      */
     public function addProducts($websiteIds, $productIds)
     {
         if (!is_array($websiteIds) || !is_array($productIds)
-            || count($websiteIds) == 0 || count($productIds) == 0)
-        {
+            || count($websiteIds) == 0 || count($productIds) == 0) {
             return $this;
         }
 

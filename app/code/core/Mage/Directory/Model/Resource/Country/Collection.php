@@ -20,10 +20,9 @@
  *
  * @category    Mage
  * @package     Mage_Directory
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 
 /**
  * Directory Country Resource Collection
@@ -31,6 +30,8 @@
  * @category    Mage
  * @package     Mage_Directory
  * @author      Magento Core Team <core@magentocommerce.com>
+ *
+ * @property Mage_Directory_Model_Country[] $_items
  */
 class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -58,7 +59,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * Load allowed countries for specific store
      *
      * @param mixed $store
-     * @return Mage_Directory_Model_Resource_Country_Collection
+     * @return $this
      */
     public function loadByStore($store = null)
     {
@@ -73,7 +74,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * Loads Item By Id
      *
      * @param string $countryId
-     * @return Mage_Directory_Model_Resource_Country
+     * @return Mage_Directory_Model_Resource_Country|Mage_Directory_Model_Country
      */
     public function getItemById($countryId)
     {
@@ -93,7 +94,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      *
      * @param string|array $countryCode
      * @param string|array $iso
-     * @return Mage_Directory_Model_Resource_Country_Collection
+     * @return $this
      */
     public function addCountryCodeFilter($countryCode, $iso = array('iso3', 'iso2'))
     {
@@ -102,7 +103,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                 if (is_array($iso)) {
                     $whereOr = array();
                     foreach ($iso as $iso_curr) {
-                        $whereOr[] .= $this->_getConditionSql("{$iso_curr}_code", array('in' => $countryCode));
+                        $whereOr[] = $this->_getConditionSql("{$iso_curr}_code", array('in' => $countryCode));
                     }
                     $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
                 } else {
@@ -112,7 +113,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                 if (is_array($iso)) {
                     $whereOr = array();
                     foreach ($iso as $iso_curr) {
-                        $whereOr[] .= $this->_getConditionSql("{$iso_curr}_code", $countryCode);
+                        $whereOr[] = $this->_getConditionSql("{$iso_curr}_code", $countryCode);
                     }
                     $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
                 } else {
@@ -127,7 +128,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
      * Add filter by country code(s) to collection
      *
      * @param string|array $countryId
-     * @return Mage_Directory_Model_Resource_Country_Collection
+     * @return $this
      */
     public function addCountryIdFilter($countryId)
     {

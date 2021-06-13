@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass
     }
 
     /**
+     * @param Varien_Data_Form_Element_Abstract $element
      * @return string
      */
     protected function _getScriptHtml(Varien_Data_Form_Element_Abstract $element)
@@ -68,6 +69,13 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass
             } else {
                 $('{$element->getHtmlId()}_container').hide();
                 $('{$element->getHtmlId()}').disable();
+            }
+            if ($('email-passowrd-warning')) {
+                if (!$('_accountnew_password').getValue() || $('account-send-pass').checked) {
+                    $('email-passowrd-warning').hide();
+                } else if ($('_accountnew_password').getValue()) {
+                    $('email-passowrd-warning').show();
+                }
             }
         });
         $(elem).on('focus', function() {
