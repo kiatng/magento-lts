@@ -615,7 +615,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $massactionColumn = $this->getLayout()->createBlock('adminhtml/widget_grid_column')
                 ->setData(array(
                     'index'        => $this->getMassactionIdField(),
-                    'filter_index' => $this->getMassactionIdFilter(),
+                    'filter_index' => $this->getMassactionFilterIndex() ?? $this->getMassactionIdFilter(),
                     'type'         => 'massaction',
                     'name'         => $this->getMassactionBlock()->getFormFieldName(),
                     'align'        => 'center',
