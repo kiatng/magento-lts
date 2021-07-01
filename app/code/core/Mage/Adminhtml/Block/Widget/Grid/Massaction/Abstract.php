@@ -224,7 +224,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
 
     public function getJavaScript()
     {
-        return " var {$this->getJsObjectName()} = new varienGridMassaction('{$this->getHtmlId()}', "
+        return "{$this->getJsObjectName()} = new varienGridMassaction('{$this->getHtmlId()}', "
                 . "{$this->getGridJsObjectName()}, '{$this->getSelectedJson()}'"
                 . ", '{$this->getFormFieldNameInternal()}', '{$this->getFormFieldName()}');"
                 . "{$this->getJsObjectName()}.setItems({$this->getItemsJson()}); "
