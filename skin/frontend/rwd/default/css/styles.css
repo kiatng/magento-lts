@@ -1218,7 +1218,6 @@ a.button:hover {
 }
 .btn-remove2:hover {
   background-color: transparent;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
 
@@ -1509,7 +1508,6 @@ a.button:hover {
   font-size: 11px;
 }
 .global-site-notice .notice-inner {
-  padding-left: 120px;
   width: 100%;
   max-width: 1200px;
   margin-left: auto;
@@ -1518,9 +1516,7 @@ a.button:hover {
   min-height: 40px;
   padding-top: 14.5px;
   padding-bottom: 14.5px;
-  background-image: url("../images/demo-logo.png");
-  background-position: left;
-  background-repeat: no-repeat;
+  text-align: center;
 }
 .global-site-notice p {
   margin-bottom: 0;
@@ -7531,7 +7527,6 @@ body:not(.opc-has-progressed-from-login) .opc.opc-firststep-login .section#opc-l
 }
 .configurable-swatch-list .not-available .swatch-link.has-image img {
   opacity: 0.4;
-  filter: alpha(opacity=40);
 }
 .configurable-swatch-list .not-available .swatch-label {
   color: #aaa;
@@ -8911,7 +8906,6 @@ div.paypal-logo span > img {
 }
 .slideshow-prev.disabled,
 .slideshow-next.disabled {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
   cursor: default;
 }

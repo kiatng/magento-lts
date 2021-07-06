@@ -59,6 +59,13 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected $_eventObject = 'object';
 
     /**
+     * Original data that was loaded
+     *
+     * @var array
+     */
+    protected $_origData;
+
+    /**
      * Name of the resource model
      *
      * @var string
@@ -112,6 +119,51 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _init($resourceModel)
     {
         $this->_setResourceModel($resourceModel);
+    }
+
+    /**
+     * Get object loaded data (original data)
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getOrigData($key = null)
+    {
+        if (is_null($key)) {
+            return $this->_origData;
+        }
+        return isset($this->_origData[$key]) ? $this->_origData[$key] : null;
+    }
+
+    /**
+     * Initialize object original data
+     *
+     * @param string $key
+     * @param mixed $data
+     * @return $this
+     */
+    public function setOrigData($key = null, $data = null)
+    {
+        if (is_null($key)) {
+            $this->_origData = $this->_data;
+        } else {
+            $this->_origData[$key] = $data;
+        }
+        return $this;
+    }
+
+    /**
+     * Compare object data with original data
+     *
+     * @param string $field
+     * @return boolean
+     */
+    public function dataHasChangedFor($field)
+    {
+        $newData = $this->getData($field);
+        $origData = $this->getOrigData($field);
+
+        return $newData != $origData;
     }
 
     /**
@@ -310,6 +362,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Save object data
      *
      * @return $this
+     * @throws Throwable
      */
     public function save()
     {
@@ -323,7 +376,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             return $this;
         }
         $this->_getResource()->beginTransaction();
-        $dataCommited = false;
+
         try {
             $this->_beforeSave();
             if ($this->_dataSaveAllowed) {
@@ -333,15 +386,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_getResource()->addCommitCallback(array($this, 'afterCommitCallback'))
                 ->commit();
             $this->_hasDataChanges = false;
-            $dataCommited = true;
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             $this->_hasDataChanges = true;
             throw $e;
         }
-        if ($dataCommited) {
-            $this->_afterSaveCommit();
-        }
+
         return $this;
     }
 
@@ -355,18 +405,6 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $this->cleanModelCache();
         Mage::dispatchEvent('model_save_commit_after', array('object'=>$this));
         Mage::dispatchEvent($this->_eventPrefix.'_save_commit_after', $this->_getEventData());
-        return $this;
-    }
-
-    /**
-     * Processing data save after transaction commit.
-     * When method is called we don't have garantee what transaction was really commited
-     *
-     * @deprecated after 1.4.0.0 - please use afterCommitCallback instead
-     * @return $this
-     */
-    protected function _afterSaveCommit()
-    {
         return $this;
     }
 
@@ -483,6 +521,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Delete object from database
      *
      * @return $this
+     * @throws Throwable
      */
     public function delete()
     {
@@ -493,7 +532,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_afterDelete();
 
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }

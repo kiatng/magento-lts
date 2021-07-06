@@ -26,7 +26,6 @@
 /* @var $this Mage_Core_Block_Template */ ?>
 <div class="switcher">
     <label for="store_switcher"><?php echo $this->__('Current Configuration Scope:') ?></label>
-    <?php echo $this->getHintHtml() ?>
     <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('url')">
     <?php foreach ($this->getStoreSelectOptions() as $_value => $_option): ?>
     <?php if (isset($_option['is_group'])): ?>
@@ -34,9 +33,9 @@
             </optgroup>
         <?php else: ?>
             <optgroup label="<?php echo $this->escapeHtml($_option['label']) ?>" style="<?php echo $_option['style'] ?>">
-        <?php endif; ?>
+        <?php endif ?>
         <?php continue ?>
-    <?php endif; ?>
+    <?php endif ?>
       <option value="<?php echo $this->escapeHtml($_value) ?>" url="<?php echo $_option['url'] ?>" <?php echo $_option['selected'] ? 'selected="selected"' : '' ?> style="<?php echo $_option['style'] ?>">
           <?php echo $this->escapeHtml($_option['label']) ?>
       </option>
@@ -46,5 +45,5 @@
     <p style="margin:10px 0 0;">
         <a href="<?php echo $this->getUrl('*/system_store') ?>"><?php echo $this->__('Manage Stores') ?></a>
     </p>
-    <?php endif; ?>
+    <?php endif ?>
 </div>

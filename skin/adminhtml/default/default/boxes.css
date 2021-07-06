@@ -85,7 +85,6 @@
     font-weight:bold;
     text-align:center;
     opacity:0.80;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /* IE8 */
     z-index:500;
     }
 #loading-mask .loader {
@@ -103,7 +102,7 @@
     z-index:1000;
     }
 
-#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:980; background-color:#efefef; opacity:.5; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";/*IE8*/ }
+#message-popup-window-mask { position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:980; background-color:#efefef; opacity:.5; }
 .message-popup { position:absolute; z-index:990; width:407px; top:-9999em; left:50%; margin:0 0 0 -203px; background:#f3bf8f; padding:0 4px 4px; }
 .message-popup.show { top:280px; }
 .message-popup .message-popup-head { padding:1px 0; }
@@ -397,6 +396,7 @@ select.multiselect option       { padding:3px 4px; border-bottom:1px solid #ddd;
 
 .fieldset-wide .form-list { width:100% !important; }
 .fieldset-wide .form-list td.value { width:auto !important; }
+.fieldset-wide .form-list td.value p.note,
 .fieldset-wide .form-list td.value input.input-text,
 .fieldset-wide .form-list td.value textarea { width:98% !important; }
 /*.fieldset-wide .form-list td.value select { display:block; }*/
@@ -473,7 +473,7 @@ button.success:active { background:url(images/btn_gr_on.gif) repeat-x 0 0 #3fa05
 
 button.disabled,
 button.disabled:hover,
-button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; }
+button.disabled:active { border-color:#777 #505050 #505050 #777; background:#919191 url(images/btn_bg-disabled.gif) 0 0 repeat-x; color:#fff; cursor:default; opacity:.8; }
 button.add.disabled span { background-image:url(images/add_btn_icon-disabled.gif); }
 
 button.loading > span { padding-left:20px; background-image: url(images/btn_loading-icon.gif) !important;}
@@ -549,7 +549,7 @@ td.divider              { font-size:1px; line-height:0; }
 .scrollContent              { position:absolute; left:0; top:0; }
 
 /* Horizontal scroll */
-.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; } /* IE has personal style, see iestyles.css */
+.hor-scroll                 { width:100%; overflow:auto; padding-bottom:4px; margin-bottom:-4px; }
 
 
 /**/
@@ -656,7 +656,7 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .left-col-block { width:200px; }
 
 /* Floating Content Header */ /* Used to make action buttons always within reach */
-.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"/* IE8 */; opacity:.85; }
+.content-header-floating { display:none; position:fixed; left:0; top:0; width:100%; border-bottom:solid 1px #988753; z-index:100; background:#fdfaa4; opacity:.85; }
 .content-header-floating .content-header { padding:6px 8px 4px 8px; margin-bottom:0; border:0; }
 .content-header-floating td     { padding-right:20px; }
 .content-header-floating button { margin-top:3px; }
@@ -678,27 +678,49 @@ div.autocomplete ul li { padding:.5em .7em; min-height:32px; cursor:pointer; tex
 .head-edit-form                 { background-image:url(images/fam_page_white.gif); }
 .head-customer-view             { background-image:url(images/fam_status_online.gif); padding-left:18px; }
 .head-customer,
-.head-customer-groups           { background-image:url(images/fam_group.gif); }
+.head-customer-groups,
+.head-online-visitors           { background-image:url(images/fam_group.gif); }
 .head-user                      { background-image:url(images/fam_user.gif); }
 .head-user-edit                 { background-image:url(images/fam_user_edit.gif); }
-.head-user-comment              { background-image:url(images/fam_user_comment.gif); }
+.head-poll,
+.head-user-comment,
+.head-review,
+.head-rating,
 .head-comment                   { background-image:url(images/fam_comment.gif); }
+.head-catalog-search            { background-image:url(images/fam_magnifier.png); }
+.head-urlrewrite                { background-image:url(images/fam_link.gif); }
 .head-cart                      { background-image:url(images/fam_cart.gif); }
+.head-system-account,
 .head-account                   { background-image:url(images/fam_account.gif); }
-.head-online-visitors           { background-image:url(images/fam_monitor.gif); }
-.head-products                  { background-image:url(images/fam_package.gif); }
-.head-catalog-product           { background-image:url(images/fam_package.gif); }
-.head-newsletter-queue          { background-image:url(images/fam_newspaper_go.gif); }
-.head-newsletter-list           { background-image:url(images/fam_newspaper.gif); }
-.head-newsletter-report         { background-image:url(images/fam_newspaper_error.gif); }
+.head-products,
+.head-catalog-product,
+.head-sitemap                   { background-image:url(images/fam_package.gif); }
+.head-newsletter                { background-image:url(images/fam_newspaper.gif); }
 .head-tag, .head-tag-product    { background-image:url(images/fam_tag_orange.gif); }
 .head-sales-order,
-.head-sales-invoice             { background-image:url(images/fam_folder_table.gif); }
+.head-sales-invoice,
+.head-sales-shipment,
+.head-sales-creditmemo,
+.head-sales-transactions,
+.head-sales-order-shipment,
+.head-sales-order-invoice,
+.head-sales-order-creditmemo,
+.head-adminhtml-recurring-profile,
+.head-adminhtml-billing-agreement,
+.head-checkout-agreement        { background-image:url(images/fam_folder_table.gif); }
+.head-tax,
+.head-tax-rule,
+.head-tax-rate-importExport,
+.head-tax-class,
+.head-system-currency,
+.head-promo-quote,
+.head-promo-catalog             { background-image:url(images/fam_money.gif); }
 .head-categories                { background-image:url(images/fam_folder_database.gif); padding-left:20px; color:#253033 !important; }
 .head-catalog-product-attribute { background-image:url(images/fam_rainbow.gif); padding-left:24px; }
 .head-product-attribute-sets    { background-image:url(images/fam_folder_palette.gif); padding-left:23px; }
-.head-tax                       { background-image:url(images/fam_money_add.gif); }
-.head-cms-page, .head-cms-block { background-image:url(images/application_view_tile.gif); }
+.head-cms-page, .head-cms-block,
+.head-adminhtml-widget-instance { background-image:url(images/application_view_tile.gif); }
+.head-report,
 .head-backups-control           { background-image:url(images/fam_server_database.gif); }
 .head-money, .head-promo-quote  { background-image:url(images/fam_money.gif); }
 .head-shipping-address,

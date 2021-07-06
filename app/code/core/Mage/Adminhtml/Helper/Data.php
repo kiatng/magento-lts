@@ -39,19 +39,20 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     const XML_PATH_CUSTOM_ADMIN_PATH            = 'default/admin/url/custom_path';
     const XML_PATH_ADMINHTML_SECURITY_USE_FORM_KEY = 'admin/security/use_form_key';
 
+    /** @deprecated */
     protected $_pageHelpUrl;
 
     /**
      * Get mapped help pages url
      *
+     * @deprecated
      * @param null|string $url
-     * @param null|string $suffix
      * @return mixed
      */
-    public function getPageHelpUrl($url = null, $suffix = null)
+    public function getPageHelpUrl($url = null)
     {
         if (!$this->_pageHelpUrl) {
-            $this->setPageHelpUrl($url, $suffix);
+            $this->setPageHelpUrl($url);
         }
         return $this->_pageHelpUrl;
     }
@@ -59,52 +60,13 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     /**
      * Set help page url
      *
+     * @deprecated
      * @param null|string $url
-     * @param null|string $suffix
      * @return $this
      */
-    public function setPageHelpUrl($url = null, $suffix = null)
+    public function setPageHelpUrl($url = null)
     {
-        if (is_null($url)) {
-            $request = Mage::app()->getRequest();
-            $frontModule = $request->getControllerModule();
-            if (!$frontModule) {
-                $frontName = $request->getModuleName();
-                $router = Mage::app()->getFrontController()->getRouterByFrontName($frontName);
-
-                $frontModule = $router->getModuleByFrontName($frontName);
-                if (is_array($frontModule)) {
-                    $frontModule = $frontModule[0];
-                }
-            }
-            $url = "http://merch.docs.magento.com/{$this->getHelpTargetVersion()}/user_guide/";
-
-            $moduleName = $frontModule;
-            $controllerName = $request->getControllerName();
-            $actionName = $request->getActionName() . (!is_null($suffix) ? $suffix : '');
-
-            if ($mappingUrl = $this->findInMapping($moduleName, $controllerName, $actionName)) {
-                $url .= $mappingUrl;
-            } else {
-                $url = 'http://magento.com/help/documentation';
-            }
-
-            $this->_pageHelpUrl = $url;
-        }
         $this->_pageHelpUrl = $url;
-
-        return $this;
-    }
-
-    /**
-     * Add suffix for help page url
-     *
-     * @param string $suffix
-     * @return $this
-     */
-    public function addPageHelpUrl($suffix)
-    {
-        $this->_pageHelpUrl = $this->getPageHelpUrl(null, $suffix);
         return $this;
     }
 
