@@ -46,6 +46,8 @@
  * @method $this setStoreId(int $storeId)
  * @method int getStoreId()
  * @method int getBlockId()
+ * @method int getCacheBypass()
+ * @method $this setCacheBypass(int $value)
  *
  * @category    Mage
  * @package     Mage_Cms

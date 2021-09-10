@@ -127,8 +127,12 @@ class Mage_Catalog_Block_Category_View extends Mage_Core_Block_Template
     public function getCmsBlockHtml()
     {
         if (!$this->getData('cms_block_html')) {
-            $html = $this->getLayout()->createBlock('cms/block')
-                ->setBlockId($this->getCurrentCategory()->getLandingPage())
+            $html = $this->getLayout()
+                ->createBlock(
+                    'cms/block',
+                    '',
+                    ['block_id' => $this->getCurrentCategory()->getLandingPage()]
+                )
                 ->toHtml();
             $this->setData('cms_block_html', $html);
         }
