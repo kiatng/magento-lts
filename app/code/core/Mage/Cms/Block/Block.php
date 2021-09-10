@@ -29,6 +29,8 @@
  *
  * @method int getBlockId()
  * @method $this setBlockId(int $int)
+ * @method int|bool getCacheBypass()
+ * @method $this setCacheBypass(int|bool $value)
  *
  * @category   Mage
  * @package    Mage_Cms
@@ -43,11 +45,43 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
      */
     protected function _construct()
     {
+        /**
+         * Cache bypass will enable email template processor for dynamic content.
+         */
+        if ($this->_isCacheBypass()) {
+            $this->unsCacheLifetime();
+            return;
+        }
+
         /*
         * setting cache to save the cms block
         */
         $this->setCacheTags(array(Mage_Cms_Model_Block::CACHE_TAG));
         $this->setCacheLifetime(false);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isCacheBypass()
+    {
+        return $this->getCacheBypass() || $this->_getCmsBlock()->getCacheBypass();
+    }
+
+    /**
+     * @return Mage_Cms_Model_Block
+     */
+    protected function _getCmsBlock()
+    {
+        if (!$this->getData('cms_block')) {
+            $block = Mage::getModel('cms/block');
+            if ($blockId = $this->getBlockId()) {
+                $block->setStoreId(Mage::app()->getStore()->getId())
+                    ->load($blockId);
+            }
+            $this->setData('cms_block', $block);
+        }
+        return $this->getData('cms_block');
     }
 
     /**
@@ -57,16 +91,16 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
      */
     protected function _toHtml()
     {
-        $blockId = $this->getBlockId();
+        $block = $this->_getCmsBlock();
         $html = '';
-        if ($blockId) {
-            $block = Mage::getModel('cms/block')
-                ->setStoreId(Mage::app()->getStore()->getId())
-                ->load($blockId);
+        if ($block->getId()) {
             if ($block->getIsActive()) {
-                /* @var Mage_Cms_Helper_Data $helper */
+                /** @var Mage_Cms_Helper_Data $helper */
                 $helper = Mage::helper('cms');
                 $processor = $helper->getBlockTemplateProcessor();
+                if ($this->_isCacheBypass()) {
+                    $processor->setVariables($this->getData());
+                }
                 $html = $processor->filter($block->getContent());
                 $this->addModelTags($block);
             }

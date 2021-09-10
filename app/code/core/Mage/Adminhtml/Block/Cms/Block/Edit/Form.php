@@ -125,6 +125,18 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
             $model->setData('is_active', '1');
         }
 
+        $fieldset->addField('cache_bypass', 'select', [
+            'label'     => Mage::helper('cms')->__('Cache Bypass'),
+            'title'     => Mage::helper('cms')->__('Cache Bypass'),
+            'name'      => 'cache_bypass',
+            'required'  => true,
+            'options'   => [
+                '0' => Mage::helper('cms')->__('Disabled'),
+                '1' => Mage::helper('cms')->__('Enabled'),
+            ],
+            'note'      => Mage::helper('cms')->__('Enable for dynamic contents.')
+        ]);
+
         $fieldset->addField('content', 'editor', array(
             'name'      => 'content',
             'label'     => Mage::helper('cms')->__('Content'),
