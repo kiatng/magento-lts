@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Kiatng_Ham>
+            <version>0.1.0</version>
+        </Kiatng_Ham>
+    </modules>
+    <frontend>
+        <routers>
+            <ham>
+                <use>standard</use>
+                <args>
+                    <module>Kiatng_Ham</module>
+                    <frontName>ham</frontName>
+                </args>
+            </ham>
+        </routers>
+    </frontend>
+</config>

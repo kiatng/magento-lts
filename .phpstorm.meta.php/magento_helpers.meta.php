@@ -2,6 +2,7 @@
 namespace PHPSTORM_META {
     override( \Mage::helper(0),
         map( [
+            'shooter' => \Kiatng_Shooter_Helper_Data::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
