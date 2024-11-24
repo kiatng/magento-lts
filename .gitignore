@@ -103,3 +103,6 @@ phpunit.xml
 .ddev/docker-compose.xhgui.yaml
 .ddev/docker-compose.xhgui_norouter.yaml
 app/etc/includes/ddev.xhgui.php
+
+# kiatng
+/app/code/local/Kiatng/Ham/controllers/SsController.php
