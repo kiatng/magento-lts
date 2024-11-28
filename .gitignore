@@ -105,4 +105,4 @@ phpunit.xml
 app/etc/includes/ddev.xhgui.php
 
 # kiatng
-/app/code/local/Kiatng/Ham/controllers/SsController.php
+app/code/local/Kiatng/Ham/controllers/SsController.php
