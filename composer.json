@@ -28,7 +28,7 @@
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
-        "kiatng/openmage-shooter": "^1.1",
+        "kiatng/openmage-shooter": "^1.2",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
@@ -131,7 +131,8 @@
         "allow-plugins": {
             "magento-hackathon/magento-composer-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "cweagans/composer-patches": true
+            "cweagans/composer-patches": true,
+            "openmage/composer-plugin": true
         },
         "platform": {
             "php": "7.4"
