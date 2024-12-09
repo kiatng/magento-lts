@@ -467,16 +467,16 @@
         },
         {
             "name": "kiatng/openmage-shooter",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiatng/openmage-shooter.git",
-                "reference": "cb446a7ce506a3bf3bbd79364f1891bdfd535088"
+                "reference": "de7072e31a0ce81c788ee523885b196da4208c38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiatng/openmage-shooter/zipball/cb446a7ce506a3bf3bbd79364f1891bdfd535088",
-                "reference": "cb446a7ce506a3bf3bbd79364f1891bdfd535088",
+                "url": "https://api.github.com/repos/kiatng/openmage-shooter/zipball/de7072e31a0ce81c788ee523885b196da4208c38",
+                "reference": "de7072e31a0ce81c788ee523885b196da4208c38",
                 "shasum": ""
             },
             "require": {
@@ -498,9 +498,9 @@
             "homepage": "https://github.com/kiatng/openmage-shooter",
             "support": {
                 "issues": "https://github.com/kiatng/openmage-shooter/issues",
-                "source": "https://github.com/kiatng/openmage-shooter/tree/v1.2.0"
+                "source": "https://github.com/kiatng/openmage-shooter/tree/v1.2.1"
             },
-            "time": "2024-11-24T01:31:49+00:00"
+            "time": "2024-12-09T11:51:20+00:00"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",
