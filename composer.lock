@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db13f706ae8852602f4561fd4dc5f89a",
+    "content-hash": "1ead135250381aabfca59016d31bc0db",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -502,6 +502,43 @@
                 "source": "https://github.com/jsonrainbow/json-schema/tree/5.3.0"
             },
             "time": "2024-07-06T21:00:26+00:00"
+        },
+        {
+            "name": "kiatng/openmage-shooter",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kiatng/openmage-shooter.git",
+                "reference": "f2e18136814611551e7e66045f696102b3bf8770"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kiatng/openmage-shooter/zipball/f2e18136814611551e7e66045f696102b3bf8770",
+                "reference": "f2e18136814611551e7e66045f696102b3bf8770",
+                "shasum": ""
+            },
+            "require": {
+                "magento-hackathon/magento-composer-installer": "*",
+                "php": ">=7.4"
+            },
+            "type": "magento-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Ng Kiat Siong",
+                    "email": "kiatsiong.ng@gmail.com"
+                }
+            ],
+            "description": "Troubleshooting tool for OpenMage developers",
+            "homepage": "https://github.com/kiatng/openmage-shooter",
+            "support": {
+                "issues": "https://github.com/kiatng/openmage-shooter/issues",
+                "source": "https://github.com/kiatng/openmage-shooter/tree/v1.2.2"
+            },
+            "time": "2025-02-10T04:08:09+00:00"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",

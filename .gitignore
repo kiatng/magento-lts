@@ -108,7 +108,8 @@ phpunit.xml
 .ddev/docker-compose.*.yaml
 app/etc/includes/ddev.xhgui.php
 
-# kiatng
-app/code/local/Kiatng/Ham/controllers/SsController.php
 # local development
 .localdev
+
+# kiatng
+app/code/local/Kiatng/Ham/controllers/SsController.php
