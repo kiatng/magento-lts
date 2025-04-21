@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1af19f4b6daaf85577f3b76aa891f3d8",
+    "content-hash": "18782ec72eb8327ddeea63fbc8656eb8",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -554,16 +554,16 @@
         },
         {
             "name": "kiatng/openmage-shooter",
-            "version": "v1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kiatng/openmage-shooter.git",
-                "reference": "f2e18136814611551e7e66045f696102b3bf8770"
+                "reference": "77e96da581b1fabc16e70fc7b67917c6f4de846c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kiatng/openmage-shooter/zipball/f2e18136814611551e7e66045f696102b3bf8770",
-                "reference": "f2e18136814611551e7e66045f696102b3bf8770",
+                "url": "https://api.github.com/repos/kiatng/openmage-shooter/zipball/77e96da581b1fabc16e70fc7b67917c6f4de846c",
+                "reference": "77e96da581b1fabc16e70fc7b67917c6f4de846c",
                 "shasum": ""
             },
             "require": {
@@ -585,9 +585,9 @@
             "homepage": "https://github.com/kiatng/openmage-shooter",
             "support": {
                 "issues": "https://github.com/kiatng/openmage-shooter/issues",
-                "source": "https://github.com/kiatng/openmage-shooter/tree/v1.2.2"
+                "source": "https://github.com/kiatng/openmage-shooter/tree/1.2.3"
             },
-            "time": "2025-02-10T04:08:09+00:00"
+            "time": "2025-04-18T07:07:58+00:00"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",
@@ -2782,16 +2782,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "7.7.2",
+            "version": "7.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "841a2f73ed89df874d5abca7286c344353098f14"
+                "reference": "88d1b2874256895338034dba28bf6e920aa4ba17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/841a2f73ed89df874d5abca7286c344353098f14",
-                "reference": "841a2f73ed89df874d5abca7286c344353098f14",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/88d1b2874256895338034dba28bf6e920aa4ba17",
+                "reference": "88d1b2874256895338034dba28bf6e920aa4ba17",
                 "shasum": ""
             },
             "type": "component",
@@ -2835,9 +2835,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/7.7.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/7.8.0"
             },
-            "time": "2025-03-19T03:36:58+00:00"
+            "time": "2025-04-09T02:06:27+00:00"
         }
     ],
     "packages-dev": [
@@ -4643,16 +4643,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.11",
+            "version": "2.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30"
+                "reference": "96dde49e967c0c22812bcfa7bda4ff82c09f3b0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8ca5f79a8f63c49b2359065832a654e1ec70ac30",
-                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/96dde49e967c0c22812bcfa7bda4ff82c09f3b0c",
+                "reference": "96dde49e967c0c22812bcfa7bda4ff82c09f3b0c",
                 "shasum": ""
             },
             "require": {
@@ -4697,7 +4697,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-24T13:45:00+00:00"
+            "time": "2025-04-16T13:19:18+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
