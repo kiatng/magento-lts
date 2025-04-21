@@ -114,5 +114,8 @@ app/etc/includes/ddev.xhgui.php
 # local development
 .localdev
 
+# rector
+.rector.result.cache
+
 # kiatng
 app/code/local/Kiatng/Ham/controllers/SsController.php
