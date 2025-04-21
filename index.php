@@ -54,4 +54,17 @@ if (file_exists($maintenanceFile)) {
     $config->getCache()->remove($config->getCacheId());
 }
 
+register_shutdown_function(function(){
+    $err = error_get_last();
+    if ($err && $err['type'] != E_WARNING) {
+        $err['type'] = $err['type'] . ':' . array_search($err['type'], get_defined_constants(true)['Core']);
+        $err['uri'] = $_SERVER['REQUEST_URI'] ?? $_SERVER['SCRIPT_NAME'];
+        [$err['user'], $err['role']] = Mage::helper('shooter')->getSessionUser();
+        Mage::getModel('core/flag', ['flag_code' => 'error_get_last'])
+            ->loadSelf()
+            ->setFlagData($err)
+            ->save();
+    }
+});
+
 Mage::run($mageRunCode, $mageRunType);
