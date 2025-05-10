@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+            <block type="aiagent/adminhtml_chat" name="aiagent_adminhtml_chat" template="aiagent/chat.phtml" />
+        </reference>
+    </default>
+    
+    <adminhtml_customer_edit>
+        <reference name="customer_edit_tabs">
+            <action method="addTab">
+                <name>customer_edit_tab_chat</name>
+                <block>aiagent/adminhtml_customer_edit_tab_chat</block>
+            </action>
+        </reference>
+    </adminhtml_customer_edit>
+</layout>

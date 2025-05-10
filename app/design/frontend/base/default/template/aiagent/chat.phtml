@@ -1,0 +1,257 @@
+<?php
+/**
+ * Kiatng AiAgent Extension
+ *
+ * @category   Kiatng
+ * @package    Kiatng_AiAgent
+ * @author     Kiatng
+ */
+?>
+<?php if ($this->isEnabled()): ?>
+<div id="aiagent-chat-container" class="aiagent-chat-container">
+    <div id="aiagent-chat-icon" class="aiagent-chat-icon">
+        <i class="aiagent-icon">?</i>
+    </div>
+    
+    <div id="aiagent-chat-window" class="aiagent-chat-window" style="display: none;">
+        <div class="aiagent-chat-header">
+            <span><?php echo $this->__('AI Assistant'); ?></span>
+            <span class="aiagent-chat-close">&times;</span>
+        </div>
+        
+        <div id="aiagent-chat-messages" class="aiagent-chat-messages">
+            <?php $chatHistory = $this->getChatHistory(); ?>
+            <?php if (empty($chatHistory)): ?>
+                <div class="aiagent-message aiagent-message-ai">
+                    <div class="aiagent-message-content">
+                        <?php echo $this->__('Hello! How can I help you today?'); ?>
+                    </div>
+                </div>
+            <?php else: ?>
+                <?php foreach ($chatHistory as $message): ?>
+                    <div class="aiagent-message <?php echo $message['is_from_user'] ? 'aiagent-message-user' : 'aiagent-message-ai'; ?>">
+                        <div class="aiagent-message-content">
+                            <?php echo nl2br($this->escapeHtml($message['message'])); ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        
+        <div class="aiagent-chat-input">
+            <textarea id="aiagent-message-input" placeholder="<?php echo $this->__('Type your message...'); ?>"></textarea>
+            <button id="aiagent-send-button" type="button"><?php echo $this->__('Send'); ?></button>
+        </div>
+    </div>
+</div>
+
+<style>
+.aiagent-chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+}
+
+.aiagent-chat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #0073b1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.aiagent-icon {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.aiagent-chat-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 350px;
+    height: 450px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.aiagent-chat-header {
+    padding: 15px;
+    background-color: #0073b1;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.aiagent-chat-close {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.aiagent-chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.aiagent-message {
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.aiagent-message-user {
+    justify-content: flex-end;
+}
+
+.aiagent-message-content {
+    max-width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.aiagent-message-ai .aiagent-message-content {
+    background-color: #f1f1f1;
+}
+
+.aiagent-message-user .aiagent-message-content {
+    background-color: #0073b1;
+    color: white;
+}
+
+.aiagent-chat-input {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+}
+
+#aiagent-message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    resize: none;
+    height: 40px;
+}
+
+#aiagent-send-button {
+    margin-left: 10px;
+    padding: 0 15px;
+    background-color: #0073b1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+
+<script type="text/javascript">
+//<![CDATA[
+document.observe('dom:loaded', function() {
+    var chatIcon = $('aiagent-chat-icon');
+    var chatWindow = $('aiagent-chat-window');
+    var chatClose = $$('.aiagent-chat-close')[0];
+    var messageInput = $('aiagent-message-input');
+    var sendButton = $('aiagent-send-button');
+    var chatMessages = $('aiagent-chat-messages');
+    
+    // Toggle chat window
+    chatIcon.observe('click', function() {
+        chatWindow.toggle();
+        if (chatWindow.visible()) {
+            messageInput.focus();
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    });
+    
+    // Close chat window
+    chatClose.observe('click', function() {
+        chatWindow.hide();
+    });
+    
+    // Send message on button click
+    sendButton.observe('click', function() {
+        sendMessage();
+    });
+    
+    // Send message on Enter key press
+    messageInput.observe('keypress', function(e) {
+        if (e.keyCode === 13 && !e.shiftKey) {
+            e.stop();
+            sendMessage();
+        }
+    });
+    
+    // Send message function
+    function sendMessage() {
+        var message = messageInput.value.trim();
+        
+        if (message === '') {
+            return;
+        }
+        
+        // Add user message to chat
+        addMessage(message, true);
+        
+        // Clear input
+        messageInput.value = '';
+        
+        // Show loading indicator
+        var loadingMessage = '<?php echo $this->__('Thinking...'); ?>';
+        var loadingId = addMessage(loadingMessage, false);
+        
+        // Send message to server
+        new Ajax.Request('<?php echo $this->getSendMessageUrl(); ?>', {
+            method: 'post',
+            parameters: {
+                message: message
+            },
+            onSuccess: function(response) {
+                var data = response.responseJSON;
+                
+                // Remove loading message
+                $(loadingId).remove();
+                
+                if (data.error) {
+                    addMessage(data.message, false);
+                } else {
+                    addMessage(data.response, false);
+                }
+            },
+            onFailure: function() {
+                // Remove loading message
+                $(loadingId).remove();
+                
+                addMessage('<?php echo $this->__('Sorry, there was an error processing your request. Please try again later.'); ?>', false);
+            }
+        });
+    }
+    
+    // Add message to chat
+    function addMessage(message, isFromUser) {
+        var messageId = 'aiagent-message-' + new Date().getTime();
+        var messageHtml = '<div id="' + messageId + '" class="aiagent-message ' + (isFromUser ? 'aiagent-message-user' : 'aiagent-message-ai') + '">' +
+            '<div class="aiagent-message-content">' + message.replace(/\n/g, '<br>') + '</div>' +
+            '</div>';
+        
+        chatMessages.insert(messageHtml);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        return messageId;
+    }
+});
+//]]>
+</script>
+<?php endif; ?>
