@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <aiagent translate="title" module="aiagent">
+                                        <title>AI Agent</title>
+                                        <sort_order>100</sort_order>
+                                    </aiagent>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <customer>
+                        <children>
+                            <manage>
+                                <children>
+                                    <aiagent_chat translate="title" module="aiagent">
+                                        <title>AI Chat History</title>
+                                    </aiagent_chat>
+                                </children>
+                            </manage>
+                        </children>
+                    </customer>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <customer>
+            <children>
+                <aiagent_chat translate="title" module="aiagent">
+                    <title>AI Chat History</title>
+                    <action>adminhtml/aiagent/index</action>
+                    <sort_order>100</sort_order>
+                    <depends>
+                        <module>Kiatng_AiAgent</module>
+                    </depends>
+                </aiagent_chat>
+            </children>
+        </customer>
+    </menu>
+</config>
