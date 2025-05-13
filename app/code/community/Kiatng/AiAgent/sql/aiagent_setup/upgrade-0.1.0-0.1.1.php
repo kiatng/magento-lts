@@ -16,9 +16,17 @@ $installer->run("
     MODIFY COLUMN `message` TEXT NOT NULL COMMENT 'Message Content';
 ");
 
-$installer->run("
-    ALTER TABLE {$installer->getTable('aiagent/chat_message')}
-    ADD INDEX `IDX_AIAGENT_CHAT_MESSAGE_CHAT_ID` (`chat_id`);
-");
+$connection = $installer->getConnection();
+$tableName = $installer->getTable('aiagent/chat_message');
+$indexName = 'IDX_AIAGENT_CHAT_MESSAGE_CHAT_ID';
+
+$indexesList = $connection->getIndexList($tableName);
+
+if (!array_key_exists($indexName, $indexesList)) {
+    $installer->run("
+        ALTER TABLE {$tableName}
+        ADD INDEX `{$indexName}` (`chat_id`);
+    ");
+}
 
 $installer->endSetup();
