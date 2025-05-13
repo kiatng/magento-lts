@@ -2,6 +2,7 @@
 namespace PHPSTORM_META {
     override( \Mage::helper(0),
         map( [
+            'aiagent' => \Kiatng_AiAgent_Helper_Data::class,
             'shooter' => \Kiatng_Shooter_Helper_Data::class,
             'shooter/file' => \Kiatng_Shooter_Helper_File::class,
             'shooter/redis' => \Kiatng_Shooter_Helper_Redis::class,
