@@ -1034,7 +1034,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
      */
     public function formatUrlKey($str)
     {
-        return $this->getSlugger()->slug($str)->lower()->toString();
+        return is_null($str) ? '' : $this->getSlugger()->slug($str)->lower()->toString();
     }
 
     public function getSlugger(): AsciiSlugger

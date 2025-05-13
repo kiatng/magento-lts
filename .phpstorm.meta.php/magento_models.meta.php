@@ -2,6 +2,8 @@
 namespace PHPSTORM_META {
     override( \Mage::getModel(0),
         map( [
+            'aiagent/chat' => \Kiatng_AiAgent_Model_Chat::class,
+            'aiagent/chat_message' => \Kiatng_AiAgent_Model_Chat_Message::class,
             'core_resource/session' => \Cm_RedisSession_Model_Session::class,
             'cm_redissession/session' => \Cm_RedisSession_Model_Session::class,
             'cm_redissession/session_config' => \Cm_RedisSession_Model_Session_Config::class,
