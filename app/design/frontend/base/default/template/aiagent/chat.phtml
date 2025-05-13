@@ -4,7 +4,8 @@
  *
  * @category   Kiatng
  * @package    Kiatng_AiAgent
- * @author     Kiatng
+ * @author     Devin AI
+ * @license    GNU General Public License v3.0 (GPL-3.0)
  */
 ?>
 <?php if ($this->isEnabled()): ?>
@@ -116,10 +117,11 @@
 }
 
 .aiagent-message-content {
-    max-width: 80%;
+    max-width: 100%;
     padding: 10px;
     border-radius: 10px;
     word-wrap: break-word;
+    position: relative;
 }
 
 .aiagent-message-ai .aiagent-message-content {
@@ -242,14 +244,49 @@ document.observe('dom:loaded', function() {
     // Add message to chat
     function addMessage(message, isFromUser) {
         var messageId = 'aiagent-message-' + new Date().getTime();
+        var messageContent = message.replace(/\n/g, '<br>');
+        var copyButton = '';
+        
+        if (!isFromUser) {
+            copyButton = '<button class="aiagent-copy-message" data-message-id="' + messageId + '">Copy</button>';
+        }
+        
         var messageHtml = '<div id="' + messageId + '" class="aiagent-message ' + (isFromUser ? 'aiagent-message-user' : 'aiagent-message-ai') + '">' +
-            '<div class="aiagent-message-content">' + message.replace(/\n/g, '<br>') + '</div>' +
+            '<div class="aiagent-message-content">' + messageContent + copyButton + '</div>' +
             '</div>';
         
         chatMessages.insert(messageHtml);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         
+        // Add click event for copy button
+        if (!isFromUser) {
+            setTimeout(function() {
+                $$('.aiagent-copy-message[data-message-id="' + messageId + '"]').each(function(button) {
+                    button.observe('click', function() {
+                        copyMessageToClipboard(messageId, message);
+                    });
+                });
+            }, 100);
+        }
+        
         return messageId;
+    }
+    
+    // Copy message to clipboard
+    function copyMessageToClipboard(messageId, message) {
+        var textarea = document.createElement('textarea');
+        textarea.value = message;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        
+        var button = $$('.aiagent-copy-message[data-message-id="' + messageId + '"]')[0];
+        var originalText = button.innerHTML;
+        button.update('Copied!');
+        setTimeout(function() {
+            button.update(originalText);
+        }, 2000);
     }
 });
 //]]>

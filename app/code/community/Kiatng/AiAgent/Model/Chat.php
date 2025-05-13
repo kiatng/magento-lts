@@ -4,7 +4,8 @@
  *
  * @category   Kiatng
  * @package    Kiatng_AiAgent
- * @author     Kiatng
+ * @author     Devin AI
+ * @license    GNU General Public License v3.0 (GPL-3.0)
  */
 class Kiatng_AiAgent_Model_Chat extends Mage_Core_Model_Abstract
 {
@@ -49,14 +50,14 @@ class Kiatng_AiAgent_Model_Chat extends Mage_Core_Model_Abstract
         }
         
         if (!$chat || !$chat->getId()) {
-            $chat = $this->setData(array(
+            $chat = $this->setData([
                 'customer_id' => $customerId,
                 'admin_id' => $adminId,
                 'session_id' => $sessionId,
                 'is_active' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
-            ))->save();
+            ])->save();
         }
         
         return $chat;
@@ -72,12 +73,12 @@ class Kiatng_AiAgent_Model_Chat extends Mage_Core_Model_Abstract
     public function addMessage($message, $isFromUser = true)
     {
         $chatMessage = Mage::getModel('aiagent/chat_message');
-        $chatMessage->setData(array(
+        $chatMessage->setData([
             'chat_id' => $this->getId(),
             'message' => $message,
             'is_from_user' => $isFromUser ? 1 : 0,
             'created_at' => now(),
-        ))->save();
+        ])->save();
         
         $this->setUpdatedAt(now())->save();
         
@@ -113,14 +114,14 @@ class Kiatng_AiAgent_Model_Chat extends Mage_Core_Model_Abstract
     {
         $this->addMessage($message, true);
         
-        $chatHistory = array();
+        $chatHistory = [];
         $messages = $this->getMessages(10);
         
         foreach ($messages as $chatMessage) {
-            $chatHistory[] = array(
+            $chatHistory[] = [
                 'message' => $chatMessage->getMessage(),
                 'is_from_user' => $chatMessage->getIsFromUser(),
-            );
+            ];
         }
         
         $context = $this->getContextForMessage($message);
@@ -142,7 +143,7 @@ class Kiatng_AiAgent_Model_Chat extends Mage_Core_Model_Abstract
      */
     protected function getContextForMessage($message)
     {
-        $context = array();
+        $context = [];
         $helper = Mage::helper('aiagent');
         
         if ($helper->isRagEnabled()) {

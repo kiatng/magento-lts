@@ -4,7 +4,8 @@
  *
  * @category   Kiatng
  * @package    Kiatng_AiAgent
- * @author     Kiatng
+ * @author     Devin AI
+ * @license    GNU General Public License v3.0 (GPL-3.0)
  */
 class Kiatng_AiAgent_Adminhtml_AiagentController extends Mage_Adminhtml_Controller_Action
 {
@@ -47,10 +48,10 @@ class Kiatng_AiAgent_Adminhtml_AiagentController extends Mage_Adminhtml_Controll
             $message = $this->getRequest()->getParam('message');
             
             if (empty($message)) {
-                $this->_sendJsonResponse(array(
+                $this->_sendJsonResponse([
                     'error' => true,
                     'message' => Mage::helper('aiagent')->__('Message cannot be empty.')
-                ));
+                ]);
                 return;
             }
             
@@ -60,16 +61,16 @@ class Kiatng_AiAgent_Adminhtml_AiagentController extends Mage_Adminhtml_Controll
             
             $response = $chat->processMessage($message);
             
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => false,
                 'response' => $response
-            ));
+            ]);
         } catch (Exception $e) {
             Mage::logException($e);
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => true,
                 'message' => Mage::helper('aiagent')->__('An error occurred while processing your request. Please try again later.')
-            ));
+            ]);
         }
     }
     
@@ -88,27 +89,27 @@ class Kiatng_AiAgent_Adminhtml_AiagentController extends Mage_Adminhtml_Controll
             $adminId = Mage::getSingleton('admin/session')->getUser()->getId();
             $chat = $chat->getOrCreateChat(null, $adminId);
             
-            $messages = array();
+            $messages = [];
             $chatMessages = $chat->getMessages();
             
             foreach ($chatMessages as $chatMessage) {
-                $messages[] = array(
+                $messages[] = [
                     'message' => $chatMessage->getMessage(),
                     'is_from_user' => (bool)$chatMessage->getIsFromUser(),
                     'created_at' => $chatMessage->getCreatedAt()
-                );
+                ];
             }
             
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => false,
                 'messages' => $messages
-            ));
+            ]);
         } catch (Exception $e) {
             Mage::logException($e);
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => true,
                 'message' => Mage::helper('aiagent')->__('An error occurred while retrieving chat history. Please try again later.')
-            ));
+            ]);
         }
     }
     
@@ -127,10 +128,10 @@ class Kiatng_AiAgent_Adminhtml_AiagentController extends Mage_Adminhtml_Controll
             $type = $this->getRequest()->getParam('type', 'cms');
             
             if (empty($prompt)) {
-                $this->_sendJsonResponse(array(
+                $this->_sendJsonResponse([
                     'error' => true,
                     'message' => Mage::helper('aiagent')->__('Prompt cannot be empty.')
-                ));
+                ]);
                 return;
             }
             
@@ -143,16 +144,16 @@ class Kiatng_AiAgent_Adminhtml_AiagentController extends Mage_Adminhtml_Controll
                 $content = $adapter->generateContent($prompt);
             }
             
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => false,
                 'content' => $content
-            ));
+            ]);
         } catch (Exception $e) {
             Mage::logException($e);
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => true,
                 'message' => Mage::helper('aiagent')->__('An error occurred while generating content. Please try again later.')
-            ));
+            ]);
         }
     }
     

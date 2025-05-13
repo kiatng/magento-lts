@@ -4,7 +4,8 @@
  *
  * @category   Kiatng
  * @package    Kiatng_AiAgent
- * @author     Kiatng
+ * @author     Devin AI
+ * @license    GNU General Public License v3.0 (GPL-3.0)
  */
 class Kiatng_AiAgent_AjaxController extends Mage_Core_Controller_Front_Action
 {
@@ -19,10 +20,10 @@ class Kiatng_AiAgent_AjaxController extends Mage_Core_Controller_Front_Action
             $this->getResponse()
                 ->setHeader('HTTP/1.1', '403 Forbidden')
                 ->setHeader('Status', '403 Forbidden')
-                ->setBody(json_encode(array(
+                ->setBody(json_encode([
                     'error' => true,
                     'message' => Mage::helper('aiagent')->__('AI Agent is not enabled for your account.')
-                )))
+                ]))
                 ->sendResponse();
             exit;
         }
@@ -42,10 +43,10 @@ class Kiatng_AiAgent_AjaxController extends Mage_Core_Controller_Front_Action
             $message = $this->getRequest()->getParam('message');
             
             if (empty($message)) {
-                $this->_sendJsonResponse(array(
+                $this->_sendJsonResponse([
                     'error' => true,
                     'message' => Mage::helper('aiagent')->__('Message cannot be empty.')
-                ));
+                ]);
                 return;
             }
             
@@ -61,16 +62,16 @@ class Kiatng_AiAgent_AjaxController extends Mage_Core_Controller_Front_Action
             
             $response = $chat->processMessage($message);
             
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => false,
                 'response' => $response
-            ));
+            ]);
         } catch (Exception $e) {
             Mage::logException($e);
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => true,
                 'message' => Mage::helper('aiagent')->__('An error occurred while processing your request. Please try again later.')
-            ));
+            ]);
         }
     }
     
@@ -95,27 +96,27 @@ class Kiatng_AiAgent_AjaxController extends Mage_Core_Controller_Front_Action
                 $chat = $chat->getOrCreateChat(null, null, $sessionId);
             }
             
-            $messages = array();
+            $messages = [];
             $chatMessages = $chat->getMessages();
             
             foreach ($chatMessages as $chatMessage) {
-                $messages[] = array(
+                $messages[] = [
                     'message' => $chatMessage->getMessage(),
                     'is_from_user' => (bool)$chatMessage->getIsFromUser(),
                     'created_at' => $chatMessage->getCreatedAt()
-                );
+                ];
             }
             
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => false,
                 'messages' => $messages
-            ));
+            ]);
         } catch (Exception $e) {
             Mage::logException($e);
-            $this->_sendJsonResponse(array(
+            $this->_sendJsonResponse([
                 'error' => true,
                 'message' => Mage::helper('aiagent')->__('An error occurred while retrieving chat history. Please try again later.')
-            ));
+            ]);
         }
     }
     
