@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Kiatng_AiAgent>
-            <version>0.1.1</version>
+            <version>0.1.0</version>
         </Kiatng_AiAgent>
     </modules>
     <global>
