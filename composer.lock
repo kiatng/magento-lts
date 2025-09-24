@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "9f690574d2e2f8daf82d6ce3c9456d96",
-=======
-    "content-hash": "2a379a4ec7e3f7b249a91881618f67c9",
->>>>>>> main
+    "content-hash": "36013e3a21aa9d408bed5fb54d8f66d0",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -84,7 +80,7 @@
             "version": "1.17.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/colinmollenhour/Cm_Cache_Backend_Redis.git",
+                "url": "git@github.com:colinmollenhour/Cm_Cache_Backend_Redis.git",
                 "reference": "d403f4473e1b3cc616fa59d187e817543b6620c1"
             },
             "dist": {
@@ -176,7 +172,7 @@
             "version": "3.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
+                "url": "git@github.com:colinmollenhour/Cm_RedisSession.git",
                 "reference": "d86fc3789f884cb4b04a9353022a9a8ce89efbbd"
             },
             "dist": {
@@ -1113,7 +1109,7 @@
             "version": "4.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Cotya/magento-composer-installer.git",
+                "url": "git@github.com:Cotya/magento-composer-installer.git",
                 "reference": "ece5cc5bb2a0150a743619901543036597f9eb5b"
             },
             "dist": {
