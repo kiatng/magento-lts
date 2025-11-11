@@ -55,9 +55,9 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
      * category custom_use_for_products option is set to 1.
      * If not or product shows not in category - applies product's internal settings
      *
-     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      * @param Mage_Catalog_Model_Category|Mage_Catalog_Model_Product $object
      * @param Mage_Core_Model_Layout_Update $update
+     * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
      */
     protected function _applyCustomDesignSettings($object, $update)
     {
@@ -116,17 +116,17 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
         // Render page
         try {
             $viewHelper->prepareAndRender($productId, $this, $params);
-        } catch (Exception $e) {
-            if ($e->getCode() == $viewHelper->ERR_NO_PRODUCT_LOADED) {
+        } catch (Exception $exception) {
+            if ($exception->getCode() == $viewHelper->ERR_NO_PRODUCT_LOADED) {
                 if (isset($_GET['store'])  && !$this->getResponse()->isRedirect()) {
                     $this->_redirect('');
                 } elseif (!$this->getResponse()->isRedirect()) {
                     $this->_forward('noRoute');
                 }
             } elseif (Mage::getIsDeveloperMode()) {
-                Mage::printException($e);
+                Mage::printException($exception);
             } else {
-                Mage::logException($e);
+                Mage::logException($exception);
                 $this->_forward('noRoute');
             }
         }

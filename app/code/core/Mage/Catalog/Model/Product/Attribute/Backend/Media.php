@@ -64,8 +64,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Validate media_gallery attribute data
      *
      * @param Mage_Catalog_Model_Product $object
-     * @throws Mage_Core_Exception
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function validate($object)
     {
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             return;
         }
 
-        if (!is_array($value['images']) && strlen($value['images']) > 0) {
+        if (!is_array($value['images']) && (string) $value['images'] !== '') {
             $value['images'] = Mage::helper('core')->jsonDecode($value['images']);
         }
 
@@ -109,7 +109,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
             $value['values'] = [];
         }
 
-        if (!is_array($value['values']) && strlen($value['values']) > 0) {
+        if (!is_array($value['values']) && (string) $value['values'] !== '') {
             $value['values'] = Mage::helper('core')->jsonDecode($value['values']);
         }
 
@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
      * Add image to media gallery and return new filename
      *
      * @param string                     $file              file path of image in file system
-     * @param string|array               $mediaAttribute    code of attribute with type 'media_image',
+     * @param array|string               $mediaAttribute    code of attribute with type 'media_image',
      *                                                      leave blank if image should be only in gallery
      * @param bool                    $move              if true, it will move source file
      * @param bool                    $exclude           mark image as disabled in product page view
@@ -340,8 +340,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $storageHelper->saveFile($this->_getConfig()->getTmpMediaShortUrl($fileName));
                 $ioAdapter->chmod($this->_getConfig()->getTmpMediaPath($fileName), 0777);
             }
-        } catch (Exception $e) {
-            Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $e->getMessage()));
+        } catch (Exception $exception) {
+            Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $exception->getMessage()));
         }
 
         $fileName = str_replace(DS, '/', $fileName);
@@ -508,7 +508,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Clear media attribute value
      *
-     * @param string|array $mediaAttribute
+     * @param array|string $mediaAttribute
      * @return $this
      */
     public function clearMediaAttribute(Mage_Catalog_Model_Product $product, $mediaAttribute)
@@ -531,7 +531,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
     /**
      * Set media attribute value
      *
-     * @param string|array $mediaAttribute
+     * @param array|string $mediaAttribute
      * @param string $value
      * @return $this
      */

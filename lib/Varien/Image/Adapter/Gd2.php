@@ -62,8 +62,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Checks whether memory limit is reached.
      *
-     * @deprecated
      * @return bool
+     * @deprecated
      */
     protected function _isMemoryLimitReached()
     {
@@ -86,11 +86,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Notation in value is supported only for PHP
      * Shorthand byte options are case insensitive
      *
-     * @deprecated
      * @param string $memoryValue
-     * @throws Varien_Exception
-     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      * @return int
+     * @throws Varien_Exception
+     * @deprecated
+     * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      */
     protected function _convertToByte($memoryValue)
     {
@@ -312,7 +312,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $isAlpha     = false;
         $isTrueColor = false;
         // assume that transparency is supported by gif/png/webp only
-        if (($fileType === IMAGETYPE_GIF) || ($fileType === IMAGETYPE_PNG) || ($fileType === IMAGETYPE_WEBP)) {
+        if (in_array($fileType, [IMAGETYPE_GIF, IMAGETYPE_PNG, IMAGETYPE_WEBP], true)) {
             // check for specific transparent color
             $transparentIndex = imagecolortransparent($imageResource);
             if ($transparentIndex >= 0) {
@@ -451,9 +451,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             'Unsupported watermark image format.',
         ), $watermarkImage);
 
-        if ($this->getWatermarkWidth() &&
-            $this->getWatermarkHeigth() &&
-            ($this->getWatermarkPosition() != self::POSITION_STRETCH)
+        if ($this->getWatermarkWidth()
+            && $this->getWatermarkHeigth()
+            && ($this->getWatermarkPosition() != self::POSITION_STRETCH)
         ) {
             $newWatermark = imagecreatetruecolor($this->getWatermarkWidth(), $this->getWatermarkHeigth());
             imagealphablending($newWatermark, false);

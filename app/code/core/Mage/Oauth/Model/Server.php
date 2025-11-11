@@ -487,7 +487,7 @@ class Mage_Oauth_Model_Server
      * Validate nonce request data
      *
      * @param string $nonce Nonce string
-     * @param string|int $timestamp UNIX Timestamp
+     * @param int|string $timestamp UNIX Timestamp
      */
     protected function _validateNonce($nonce, $timestamp)
     {
@@ -625,8 +625,8 @@ class Mage_Oauth_Model_Server
             $this->_processRequest(self::REQUEST_TOKEN);
 
             $response = $this->_token->toString();
-        } catch (Exception $e) {
-            $response = $this->reportProblem($e);
+        } catch (Exception $exception) {
+            $response = $this->reportProblem($exception);
         }
 
         $this->_getResponse()->setBody($response);
@@ -698,8 +698,8 @@ class Mage_Oauth_Model_Server
             $this->_processRequest(self::REQUEST_INITIATE);
 
             $response = $this->_token->toString() . '&oauth_callback_confirmed=true';
-        } catch (Exception $e) {
-            $response = $this->reportProblem($e);
+        } catch (Exception $exception) {
+            $response = $this->reportProblem($exception);
         }
 
         $this->_getResponse()->setBody($response);
@@ -708,7 +708,7 @@ class Mage_Oauth_Model_Server
     /**
      * Create response string for problem during request and set HTTP error code
      *
-     * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
+     * @param null|Zend_Controller_Response_Http $response OPTIONAL If NULL - will use internal getter
      * @return string
      * @throws Zend_Controller_Response_Exception
      */

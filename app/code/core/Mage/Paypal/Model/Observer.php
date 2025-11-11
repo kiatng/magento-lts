@@ -30,16 +30,16 @@ class Mage_Paypal_Model_Observer
                     Mage::logException($e);
                 }
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
     }
 
     /**
      * Clean unfinished transaction
      *
-     * @deprecated since 1.6.2.0
      * @return $this
+     * @deprecated since 1.6.2.0
      */
     public function cleanTransactions()
     {

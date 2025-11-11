@@ -186,7 +186,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     /**
      * Get resource model class name
      *
-     * @return string|null
+     * @return null|string
      */
     public function getModel()
     {
@@ -271,7 +271,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             $include = explode(',', $include);
         }
 
-        return array_map('trim', $include);
+        return array_map(trim(...), $include);
     }
 
     /**
@@ -298,7 +298,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
     /**
      * Retrieve action type
      *
-     * @return string|null
+     * @return null|string
      */
     public function getActionType()
     {

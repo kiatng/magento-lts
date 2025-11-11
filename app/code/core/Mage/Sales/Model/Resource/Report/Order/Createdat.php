@@ -34,11 +34,11 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
     /**
      * Aggregate Orders data by custom field
      *
-     * @throws Exception
      * @param string $aggregationField
      * @param mixed $from
      * @param mixed $to
      * @return $this
+     * @throws Exception
      */
     protected function _aggregateByField($aggregationField, $from, $to)
     {
@@ -246,9 +246,9 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             ]);
             $adapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

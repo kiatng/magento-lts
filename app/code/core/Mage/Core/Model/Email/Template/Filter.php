@@ -50,15 +50,14 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     protected $_inlineCssFile = false;
 
-    /** @var Mage_Admin_Model_Variable  */
+    /** @var Mage_Admin_Model_Variable */
     protected $_permissionVariable;
 
-    /** @var Mage_Admin_Model_Block  */
+    /** @var Mage_Admin_Model_Block */
     protected $_permissionBlock;
 
     /**
      * Setup callbacks for filters
-     *
      */
     public function __construct()
     {
@@ -117,7 +116,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     /**
      * Setter
      *
-     * @param Mage_Core_Model_Store|int $storeId
+     * @param int|Mage_Core_Model_Store $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -551,9 +550,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     {
         try {
             $value = parent::filter($value);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $value = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         return $value;
@@ -572,9 +571,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         Mage::register('varProcessing', true);
         try {
             $result = parent::_getVariable($value, $default);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         Mage::unregister('varProcessing');

@@ -24,13 +24,12 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Product Type Price indexer resource models
      *
-     * @var array|null
+     * @var null|array
      */
     protected $_indexers;
 
     /**
      * Define main index table
-     *
      */
     protected function _construct()
     {
@@ -114,9 +113,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             $this->insertFromTable($this->getIdxTable(), $this->getMainTable());
 
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -227,7 +226,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Reindex product prices for specified product ids
      *
-     * @param array | int $ids
+     * @param array|int $ids
      * @return $this
      */
     public function reindexProductIds($ids)
@@ -365,9 +364,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
 
             $this->syncData();
             $this->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -396,7 +395,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Prepare tier price index table
      *
-     * @param int|array $entityIds the entity ids limitation
+     * @param array|int $entityIds the entity ids limitation
      * @return $this
      */
     protected function _prepareTierPriceIndex($entityIds = null)
@@ -443,7 +442,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
     /**
      * Prepare group price index table
      *
-     * @param int|array $entityIds the entity ids limitation
+     * @param array|int $entityIds the entity ids limitation
      * @return $this
      */
     protected function _prepareGroupPriceIndex($entityIds = null)
@@ -586,9 +585,9 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             }
 
             $write->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $write->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
