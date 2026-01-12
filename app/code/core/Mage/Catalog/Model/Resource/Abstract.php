@@ -12,7 +12,7 @@
  *
  * @package    Mage_Catalog
  *
- * @method int getStoreId()
+ * @method int  getStoreId()
  * @method bool getUseDataSharing()
  */
 abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entity_Abstract
@@ -47,8 +47,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Check whether the attribute is Applicable to the object
      *
-     * @param Varien_Object $object
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Varien_Object                             $object
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return bool
      */
     protected function _isApplicableAttribute($object, $attribute)
@@ -60,15 +60,15 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Check whether attribute instance (attribute, backend, frontend or source) has method and applicable
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
-     * @param string $method
-     * @param array $args array of arguments
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract|Mage_Eav_Model_Entity_Attribute_Backend_Abstract|Mage_Eav_Model_Entity_Attribute_Frontend_Abstract|Mage_Eav_Model_Entity_Attribute_Source_Abstract $instance
+     * @param  string                                                                                                                                                                                      $method
+     * @param  array                                                                                                                                                                                       $args     array of arguments
      * @return bool
      */
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
         if ($instance instanceof Mage_Eav_Model_Entity_Attribute_Backend_Abstract
-            && ($method == 'beforeSave' || $method = 'afterSave')
+            && ($method === 'beforeSave' || $method === 'afterSave')
         ) {
             $attributeCode = $instance->getAttribute()->getAttributeCode();
             if (isset($args[0]) && $args[0] instanceof Varien_Object && $args[0]->getData($attributeCode) === false) {
@@ -83,9 +83,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Retrieve select object for loading entity attributes values
      * Join attribute store value
      *
-     * @param Varien_Object $object
-     * @param string $table
+     * @param  Varien_Object       $object
+     * @param  string              $table
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     protected function _getLoadAttributesSelect($object, $table)
     {
@@ -129,9 +130,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Adds Columns prepared for union
      *
-     * @param Varien_Db_Select $select
-     * @param string $table
-     * @param string $type
+     * @param  Varien_Db_Select $select
+     * @param  string           $table
+     * @param  string           $type
      * @return Varien_Db_Select
      */
     protected function _addLoadAttributesSelectFields($select, $table, $type)
@@ -148,6 +149,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Prepare select object for loading entity attributes values
      *
      * @return Varien_Db_Select
+     * @throws Zend_Db_Select_Exception
      */
     protected function _prepareLoadSelect(array $selects)
     {
@@ -159,9 +161,10 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Initialize attribute value for object
      *
-     * @param Mage_Catalog_Model_Abstract $object
-     * @param array $valueRow
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @param  Mage_Catalog_Model_Abstract $object
+     * @param  array                       $valueRow
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _setAttributeValue($object, $valueRow)
     {
@@ -199,10 +202,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Insert or Update attribute data
      *
-     * @param Mage_Catalog_Model_Abstract|Varien_Object $object
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param mixed $value
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @param  Mage_Catalog_Model_Abstract|Varien_Object $object
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  mixed                                     $value
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _saveAttributeValue($object, $attribute, $value)
     {
@@ -261,10 +265,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Insert entity attribute value
      *
-     * @param Varien_Object $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param mixed $value
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @param  Varien_Object                             $object
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  mixed                                     $value
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _insertAttribute($object, $attribute, $value)
     {
@@ -302,11 +307,12 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Update entity attribute value
      *
-     * @param Varien_Object $object
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param mixed $valueId
-     * @param mixed $value
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @param  Varien_Object                             $object
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  mixed                                     $valueId
+     * @param  mixed                                     $value
+     * @return $this
+     * @throws Mage_Core_Exception
      * @deprecated after 1.5.1.0
      * @see Mage_Catalog_Model_Resource_Abstract::_saveAttributeValue()
      */
@@ -318,11 +324,13 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Update attribute value for specific store
      *
-     * @param Mage_Catalog_Model_Abstract $object
-     * @param object $attribute
-     * @param mixed $value
-     * @param int $storeId
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @param  Mage_Catalog_Model_Abstract               $object
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  mixed                                     $value
+     * @param  int                                       $storeId
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _updateAttributeForStore($object, $attribute, $value, $storeId)
     {
@@ -368,10 +376,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Delete entity attribute values
      *
-     * @param Varien_Object $object
-     * @param string $table
-     * @param array $info
-     * @return Mage_Catalog_Model_Resource_Abstract
+     * @param  Varien_Object       $object
+     * @param  string              $table
+     * @param  array               $info
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _deleteAttributes($object, $table, $info)
     {
@@ -438,8 +447,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Retrieve Object instance with original data
      *
-     * @param Varien_Object $object
+     * @param  Mage_Core_Model_Abstract $object
      * @return Varien_Object
+     * @throws Mage_Core_Exception
      */
     protected function _getOrigObject($object)
     {
@@ -455,8 +465,9 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Collect original data
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object       $object
      * @return array
+     * @throws Mage_Core_Exception
      * @deprecated after 1.5.1.0
      */
     protected function _collectOrigData($object)
@@ -507,7 +518,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Check is attribute value empty
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return bool
      */
     protected function _isAttributeValueEmpty(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value)
@@ -520,7 +531,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
      * Checks also attribute's store scope:
      * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
      *
-     * @param mixed $value new value of the attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  mixed                                     $value     new value of the attribute
      * @return bool
      */
     protected function _canUpdateAttribute(
@@ -544,7 +556,8 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Prepare value for save
      *
-     * @param mixed $value
+     * @param  mixed                                     $value
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return mixed
      */
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
@@ -560,10 +573,12 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Retrieve attribute's raw value from DB.
      *
-     * @param int $entityId
-     * @param array|int|string $attribute attribute's ids or codes
-     * @param int|Mage_Core_Model_Store $store
+     * @param  int                       $entityId
+     * @param  array|int|string          $attribute attribute's ids or codes
+     * @param  int|Mage_Core_Model_Store $store
      * @return null|array|bool|string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function getAttributeRawValue($entityId, $attribute, $store)
     {
@@ -685,10 +700,12 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     /**
      * Retrieve attribute's raw value from DB using its source model if available.
      *
-     * @param int $entityId
-     * @param array|int|string $attribute attribute's ids or codes
-     * @param int|Mage_Core_Model_Store $store
-     * @return array|bool|string
+     * @param  int                       $entityId
+     * @param  array|int|string          $attribute attribute's ids or codes
+     * @param  int|Mage_Core_Model_Store $store
+     * @return array|false|string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Select_Exception
      */
     public function getAttributeRawText($entityId, $attribute, $store)
     {

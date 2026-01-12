@@ -32,6 +32,9 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
      */
     protected $_haveParents = false;
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('catalogindex/data_configurable');
@@ -50,7 +53,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
      * Get child link table and field settings
      *
-     * @return mixed
+     * @return array
      */
     protected function _getLinkSettings()
     {

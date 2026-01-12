@@ -127,5 +127,8 @@ cypress/videos/
 # rector
 .rector.result.cache
 
+#dotenv
+.env
+
 # kiatng
 app/code/local/Kiatng/Ham/controllers/SsController.php

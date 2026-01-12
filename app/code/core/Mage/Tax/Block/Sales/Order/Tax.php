@@ -9,6 +9,8 @@
 
 /**
  * Tax totals modification block. Can be used just as subblock of Mage_Sales_Block_Order_Totals
+ *
+ * @method Mage_Adminhtml_Block_Sales_Order_Invoice_Totals getParentBlock()
  */
 class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
 {
@@ -25,12 +27,12 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     protected $_order;
 
     /**
-     * @var Mage_Sales_Model_Order_Invoice
+     * @var Mage_Sales_Model_Abstract
      */
     protected $_source;
 
     /**
-     * Initialize configuration object
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -64,7 +66,6 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
      */
     public function initTotals()
     {
-        /** @var Mage_Adminhtml_Block_Sales_Order_Invoice_Totals $parent */
         $parent = $this->getParentBlock();
         $this->_order   = $parent->getOrder();
         $this->_source  = $parent->getSource();
@@ -86,7 +87,7 @@ class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
     /**
      * Add tax total string
      *
-     * @param string $after
+     * @param  string $after
      * @return $this
      */
     protected function _addTax($after = 'discount')

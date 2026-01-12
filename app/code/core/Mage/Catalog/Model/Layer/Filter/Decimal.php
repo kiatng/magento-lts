@@ -51,7 +51,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Apply decimal range filter to product collection
      *
-     * @param Mage_Catalog_Block_Layer_Filter_Decimal $filterBlock
+     * @param  Mage_Catalog_Block_Layer_Filter_Decimal $filterBlock
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -76,9 +76,9 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         if ((int) $index && (int) $range) {
             $this->setRange((int) $range);
 
-            $this->_getResource()->applyFilterToCollection($this, $range, $index);
+            $this->_getResource()->applyFilterToCollection($this, (float) $range, $index);
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_renderItemLabel($range, $index), $filter),
+                $this->_createItem($this->_renderItemLabel((int) $range, (float) $index), $filter),
             );
 
             $this->_items = [];
@@ -101,10 +101,12 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Prepare text of item label
      *
-     * @param   int $range
-     * @param   float $value
-     * @return  string
-     * @throws  Mage_Core_Model_Store_Exception
+     * @param  int                                $range
+     * @param  float                              $value
+     * @return string
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     protected function _renderItemLabel($range, $value)
     {
@@ -173,7 +175,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     /**
      * Retrieve information about products count in range
      *
-     * @param int $range
+     * @param  int   $range
      * @return array
      */
     public function getRangeItemCounts($range)

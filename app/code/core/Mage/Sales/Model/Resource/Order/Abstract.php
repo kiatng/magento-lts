@@ -69,11 +69,12 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Add new virtual grid column
      *
-     * @param string $alias
-     * @param string $table
-     * @param array $joinCondition
-     * @param string $column
+     * @param  string              $alias
+     * @param  string              $table
+     * @param  array               $joinCondition
+     * @param  string              $column
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addVirtualGridColumn($alias, $table, $joinCondition, $column)
     {
@@ -126,8 +127,11 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Update records in grid table
      *
-     * @param array|int $ids
+     * @param  array|int                 $ids
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function updateGridRecords($ids)
     {
@@ -161,10 +165,12 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Retrieve update grid records select
      *
-     * @param array $ids
-     * @param array $flatColumnsToSelect
-     * @param null|array $gridColumns
+     * @param  array                $ids
+     * @param  array                $flatColumnsToSelect
+     * @param  null|array           $gridColumns
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
+     * @throws Zend_Cache_Exception
      */
     public function getUpdateGridRecordsSelect($ids, &$flatColumnsToSelect, $gridColumns = null)
     {
@@ -191,8 +197,8 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Join virtual grid columns to select
      *
-     * @param string $mainTableAlias
-     * @param array $columnsToSelect
+     * @param  string $mainTableAlias
+     * @param  array  $columnsToSelect
      * @return $this
      */
     public function joinVirtualGridColumnsToSelect($mainTableAlias, Zend_Db_Select $select, &$columnsToSelect)
@@ -229,6 +235,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      * Retrieve list of grid columns
      *
      * @return array
+     * @throws Zend_Cache_Exception
      */
     public function getGridColumns()
     {
@@ -262,7 +269,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Before save object attribute
      *
-     * @param string[] $attribute
+     * @param  string[] $attribute
      * @return $this
      */
     protected function _beforeSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
@@ -281,7 +288,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * After save object attribute
      *
-     * @param string[] $attribute
+     * @param  string[] $attribute
      * @return $this
      */
     protected function _afterSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
@@ -300,7 +307,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Perform actions after object save
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract|string|string[] $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract|string|string[] $attribute
      * @return $this
      */
     public function saveAttribute(Mage_Core_Model_Abstract $object, $attribute)
@@ -332,9 +339,9 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
 
                 $this->_afterSaveAttribute($object, $attribute);
                 $this->commit();
-            } catch (Exception $e) {
+            } catch (Exception $exception) {
                 $this->rollBack();
-                throw $e;
+                throw $exception;
             }
         }
 
@@ -345,6 +352,8 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
      * Perform actions before object save
      *
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -361,9 +370,11 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Update field in table if model have been already saved
      *
-     * @param Mage_Core_Model_Abstract $object
-     * @param array $data
+     * @param  Mage_Core_Model_Abstract  $object
+     * @param  array                     $data
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     protected function _postSaveFieldsUpdate($object, $data)
     {
@@ -383,7 +394,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Set main resource table
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      */
     public function setMainTable($table)
@@ -409,9 +420,11 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Update grid table on entity update
      *
-     * @param string $field
-     * @param int $entityId
+     * @param  string                    $field
+     * @param  int                       $entityId
      * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Db_Adapter_Exception
      */
     public function updateOnRelatedRecordChanged($field, $entityId)
     {

@@ -81,6 +81,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _initObjects()
     {
@@ -97,6 +98,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function initForm()
     {
@@ -114,7 +117,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         }
 
         foreach ($sections as $section) {
-            /** @var Varien_Simplexml_Element $section */
+            /** @var Mage_Core_Model_Config_Element $section */
             if (!$this->_canShowField($section)) {
                 continue;
             }
@@ -124,7 +127,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 usort($groups, [$this, '_sortForm']);
 
                 foreach ($groups as $group) {
-                    /** @var Varien_Simplexml_Element $group */
+                    /** @var Mage_Core_Model_Config_Element $group */
                     if (!$this->_canShowField($group)) {
                         continue;
                     }
@@ -141,10 +144,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Init config group
      *
-     * @param Varien_Data_Form $form
-     * @param Varien_Simplexml_Element $group
-     * @param Varien_Simplexml_Element $section
-     * @param null|Varien_Data_Form_Element_Fieldset $parentElement
+     * @param  Varien_Data_Form                       $form
+     * @param  Mage_Core_Model_Config_Element         $group
+     * @param  Mage_Core_Model_Config_Element         $section
+     * @param  null|Varien_Data_Form_Element_Fieldset $parentElement
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     protected function _initGroup($form, $group, $section, $parentElement = null)
     {
@@ -213,19 +218,22 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             );
         }
 
-        return $this->getChild('element_dependense');
+        /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $child */
+        $child = $this->getChild('element_dependense');
+        return $child;
     }
 
     /**
      * Init fieldset fields
      *
-     * @param Varien_Data_Form_Element_Fieldset $fieldset
-     * @param Varien_Simplexml_Element $group
-     * @param Varien_Simplexml_Element $section
-     * @param string $fieldPrefix
-     * @param string $labelPrefix
-     * @throw Mage_Core_Exception
+     * @param  Varien_Data_Form_Element_Fieldset $fieldset
+     * @param  Mage_Core_Model_Config_Element    $group
+     * @param  Mage_Core_Model_Config_Element    $section
+     * @param  string                            $fieldPrefix
+     * @param  string                            $labelPrefix
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function initFields($fieldset, $group, $section, $fieldPrefix = '', $labelPrefix = '')
     {
@@ -397,8 +405,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
                     'scope_label'           => $this->getScopeLabel($element),
-                    'can_use_default_value' => $this->canUseDefaultValue((int) $element->show_in_default),
-                    'can_use_website_value' => $this->canUseWebsiteValue((int) $element->show_in_website),
+                    'can_use_default_value' => $this->canUseDefaultValue($element->show_in_default),
+                    'can_use_website_value' => $this->canUseWebsiteValue($element->show_in_website),
                 ];
                 if ($this->isOverwrittenByEnvVariable($path)) {
                     $elementFieldData['scope_label'] = $this->_scopeLabels[self::SCOPE_ENV];
@@ -482,7 +490,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Set "original_data" array to the element, composed from nodes with scalar values
      *
      * @param Varien_Data_Form_Element_Abstract $field
-     * @param Varien_Simplexml_Element $xmlElement
+     * @param Varien_Simplexml_Element          $xmlElement
      */
     protected function _prepareFieldOriginalData($field, $xmlElement)
     {
@@ -499,8 +507,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Support models "getCommentText" method for field note generation
      *
-     * @param Mage_Core_Model_Config_Element $element
-     * @param string $helper
+     * @param  Mage_Core_Model_Config_Element $element
+     * @param  string                         $helper
      * @return string
      */
     protected function _prepareFieldComment($element, $helper, $currentValue)
@@ -526,8 +534,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Support models "getCommentText" method for group note generation
      *
-     * @param Mage_Core_Model_Config_Element $element
-     * @param string $helper
+     * @param  Mage_Core_Model_Config_Element $element
+     * @param  string                         $helper
      * @return string
      */
     protected function _prepareGroupComment($element, $helper)
@@ -538,15 +546,17 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Prepare additional comment for field like tooltip
      *
-     * @param Mage_Core_Model_Config_Element $element
-     * @param string $helper
+     * @param  Mage_Core_Model_Config_Element $element
+     * @param  string                         $helper
      * @return string
      */
     protected function _prepareFieldTooltip($element, $helper)
     {
         if ($element->tooltip) {
             return Mage::helper($helper)->__((string) $element->tooltip);
-        } elseif ($element->tooltip_block) {
+        }
+
+        if ($element->tooltip_block) {
             return $this->getLayout()->createBlock((string) $element->tooltip_block)->toHtml();
         }
 
@@ -566,8 +576,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $a
-     * @param Varien_Simplexml_Element $b
+     * @param  Varien_Simplexml_Element $a
+     * @param  Varien_Simplexml_Element $b
      * @return int
      */
     protected function _sortForm($a, $b)
@@ -576,8 +586,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $field
+     * @param  Mage_Core_Model_Config_Element $field
      * @return bool
+     * @throws Exception
      */
     public function canUseDefaultValue($field)
     {
@@ -593,8 +604,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $field
+     * @param  Mage_Core_Model_Config_Element $field
      * @return bool
+     * @throws Exception
      */
     public function canUseWebsiteValue($field)
     {
@@ -608,8 +620,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Checking field visibility
      *
-     * @param   Varien_Simplexml_Element $field
-     * @return  bool
+     * @param  Mage_Core_Model_Config_Element $field
+     * @return bool
+     * @throws Exception
      */
     protected function _canShowField($field)
     {
@@ -635,6 +648,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Retrieve current scope
      *
      * @return string
+     * @throws Exception
      */
     public function getScope()
     {
@@ -656,6 +670,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * Returns true if element was overwritten by ENV variable
+     *
+     * @throws Exception
      */
     public function isOverwrittenByEnvVariable(string $path): bool
     {
@@ -683,14 +699,16 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve label for scope
      *
-     * @param Mage_Core_Model_Config_Element $element
+     * @param  Mage_Core_Model_Config_Element $element
      * @return string
      */
     public function getScopeLabel($element)
     {
         if ((int) $element->show_in_store === 1) {
             return $this->_scopeLabels[self::SCOPE_STORES];
-        } elseif ((int) $element->show_in_website === 1) {
+        }
+
+        if ((int) $element->show_in_website === 1) {
             return $this->_scopeLabels[self::SCOPE_WEBSITES];
         }
 
@@ -701,6 +719,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Get current scope code
      *
      * @return string
+     * @throws Exception
      */
     public function getScopeCode()
     {
@@ -724,6 +743,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Get current scope code
      *
      * @return int|string
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function getScopeId()
     {
@@ -766,6 +787,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @TODO delete this methods when {^see above^} is done
      * @return string
+     * @throws Exception
      */
     public function getSectionCode()
     {
@@ -775,6 +797,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @TODO delete this methods when {^see above^} is done
      * @return string
+     * @throws Exception
      */
     public function getWebsiteCode()
     {
@@ -784,6 +807,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * @TODO delete this methods when {^see above^} is done
      * @return string
+     * @throws Exception
      */
     public function getStoreCode()
     {

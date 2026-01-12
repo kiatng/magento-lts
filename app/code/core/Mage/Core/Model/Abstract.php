@@ -13,12 +13,13 @@
  * @package    Mage_Core
  *
  * @method Mage_Customer_Model_Address_Abstract getBillingAddress()
- * @method string getCreatedAt()
+ * @method string                               getCreatedAt()
  * @method Mage_Customer_Model_Address_Abstract getShippingAddress()
- * @method bool hasErrors()
- * @method $this setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
- * @method $this setCreatedAt(string $currentTime)
- * @method $this setUpdatedAt(string $currentTime)
+ * @method string                               getUpdatedAt()
+ * @method bool                                 hasErrors()
+ * @method $this                                setAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $value)
+ * @method $this                                setCreatedAt(null|string $currentTime)
+ * @method $this                                setUpdatedAt(null|string $currentTime)
  */
 abstract class Mage_Core_Model_Abstract extends Varien_Object
 {
@@ -71,7 +72,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * When you use true - all cache will be clean
      *
-     * @var string|true
+     * @var array|bool|string
      */
     protected $_cacheTag    = false;
 
@@ -104,7 +105,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get object loaded data (original data)
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getOrigData($key = null)
@@ -119,8 +120,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Initialize object original data
      *
-     * @param string $key
-     * @param mixed $data
+     * @param  string $key
+     * @param  mixed  $data
      * @return $this
      */
     public function setOrigData($key = null, $data = null)
@@ -137,7 +138,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Compare object data with original data
      *
-     * @param string $field
+     * @param  string $field
      * @return bool
      */
     public function dataHasChangedFor($field)
@@ -153,7 +154,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      *
      * If collection name is omitted, resource name will be used with _collection appended
      *
-     * @param string $resourceName
+     * @param string      $resourceName
      * @param null|string $resourceCollectionName
      */
     protected function _setResourceModel($resourceName, $resourceCollectionName = null)
@@ -174,7 +175,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     protected function _getResource()
     {
-        if (empty($this->_resourceName)) {
+        if (is_null($this->_resourceName)) {
             Mage::throwException(Mage::helper('core')->__('Resource is not set.'));
         }
 
@@ -213,24 +214,24 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         $fieldName = $this->getIdFieldName();
         if ($fieldName) {
             return $this->_getData($fieldName);
-        } else {
-            return $this->_getData('id');
         }
+
+        return $this->_getData('id');
     }
 
     /**
      * Declare model object identifier value
      *
-     * @param   mixed $id
-     * @return  $this
-     * @throws  Mage_Core_Exception
+     * @param  mixed               $value
+     * @return $this
+     * @throws Mage_Core_Exception
      */
-    public function setId($id)
+    public function setId($value)
     {
         if ($this->getIdFieldName()) {
-            $this->setData($this->getIdFieldName(), $id);
+            $this->setData($this->getIdFieldName(), $value);
         } else {
-            $this->setData('id', $id);
+            $this->setData('id', $value);
         }
 
         return $this;
@@ -254,7 +255,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      */
     public function getResourceCollection()
     {
-        if (empty($this->_resourceCollectionName)) {
+        if (is_null($this->_resourceCollectionName)) {
             Mage::throwException(Mage::helper('core')->__('Model collection resource name is not defined.'));
         }
 
@@ -278,8 +279,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Load object data
      *
-     * @param null|int|string $id
-     * @param null|string $field
+     * @param  null|int|string     $id
+     * @param  null|string         $field
      * @return $this
      * @throws Exception
      * @throws Mage_Core_Exception
@@ -310,8 +311,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Processing object before load data
      *
-     * @param int $id
-     * @param null|string $field
+     * @param  int         $id
+     * @param  null|string $field
      * @return $this
      */
     protected function _beforeLoad($id, $field = null)
@@ -339,6 +340,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Object after load processing. Implemented as public interface for supporting objects after load in collections
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function afterLoad()
     {
@@ -419,7 +421,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * problem is what in after save object has id and we can't detect what object was
      * created in this transaction
      *
-     * @param bool $flag
+     * @param  bool                $flag
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -663,5 +665,12 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
     {
         return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
+    }
+
+    protected function getValidationHelper(): Mage_Core_Helper_Validate
+    {
+        /** @var Mage_Core_Helper_Validate $validator */
+        $validator = Mage::helper('core/validate');
+        return $validator;
     }
 }

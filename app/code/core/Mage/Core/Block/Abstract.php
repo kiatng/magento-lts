@@ -16,18 +16,18 @@
  * @package    Mage_Core
  *
  * @method string getPosition()
- * @method bool hasWrapperMustBeVisible()
- * @method $this setAdditionalHtml(string $value)
- * @method $this setBlockParams(array $value)
- * @method $this setCacheKey(string $value)
- * @method $this setCacheLifetime(false|int $value)
- * @method $this setCacheTags(array $value)
- * @method $this setClass(string $value)
- * @method $this setDisabled(bool $value)
- * @method $this setLabel(string $value)
- * @method $this setOnclick(string $value)
- * @method $this setTemplate(string $value)
- * @method $this setType(string $value)
+ * @method bool   hasWrapperMustBeVisible()
+ * @method $this  setAdditionalHtml(string $value)
+ * @method $this  setBlockParams(array $value)
+ * @method $this  setCacheKey(string $value)
+ * @method $this  setCacheLifetime(false|int $value)
+ * @method $this  setCacheTags(array $value)
+ * @method $this  setClass(string $value)
+ * @method $this  setDisabled(bool $value)
+ * @method $this  setLabel(string $value)
+ * @method $this  setOnclick(string $value)
+ * @method $this  setTemplate(string $value)
+ * @method $this  setType(string $type)
  */
 abstract class Mage_Core_Block_Abstract extends Varien_Object
 {
@@ -252,7 +252,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve parent block
      *
-     * @return $this
+     * @return Mage_Core_Block_Abstract
      */
     public function getParentBlock()
     {
@@ -262,7 +262,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set parent block
      *
-     * @return  $this
+     * @return $this
      */
     public function setParentBlock(Mage_Core_Block_Abstract $block)
     {
@@ -274,6 +274,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Retrieve current action object
      *
      * @return Mage_Core_Controller_Varien_Action
+     * @throws Mage_Core_Exception
      */
     public function getAction()
     {
@@ -283,7 +284,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set layout object
      *
-     * @return  $this
+     * @return $this
      */
     public function setLayout(Mage_Core_Model_Layout $layout)
     {
@@ -328,7 +329,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set the anonymous flag
      *
-     * @param  bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsAnonymous($flag)
@@ -350,7 +351,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set anonymous suffix for current block
      *
-     * @param string $suffix
+     * @param  string $suffix
      * @return $this
      */
     public function setAnonSuffix($suffix)
@@ -372,7 +373,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set block alias
      *
-     * @param string $alias
+     * @param  string $alias
      * @return $this
      */
     public function setBlockAlias($alias)
@@ -384,7 +385,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set block's name in layout and unsets previous link if such exists.
      *
-     * @param string $name
+     * @param  string $name
      * @return $this
      */
     public function setNameInLayout($name)
@@ -414,9 +415,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * Wrapper for method "setData"
      *
-     * @param   array|string $name
-     * @param   mixed $value
-     * @return  $this
+     * @param  array|string $name
+     * @param  mixed        $value
+     * @return $this
      */
     public function setAttribute($name, $value = null)
     {
@@ -426,9 +427,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set child block
      *
-     * @param   string $alias
-     * @param   Mage_Core_Block_Abstract $block
-     * @return  $this
+     * @param  string                   $alias
+     * @param  Mage_Core_Block_Abstract $block
+     * @return $this
      */
     public function setChild($alias, $block)
     {
@@ -501,11 +502,12 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      *
      * It is no difference anyway, because they will be transformed in appropriate way.
      *
-     * @param string $alias
-     * @param string $callback
-     * @param mixed $result
-     * @param array $params
+     * @param  string              $alias
+     * @param  string              $callback
+     * @param  mixed               $result
+     * @param  array               $params
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function unsetCallChild($alias, $callback, $result, $params)
     {
@@ -543,27 +545,25 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve child block by name
      *
-     * @param  string $name
-     * @return mixed
+     * @param  string                                                    $name
+     * @return false|Mage_Core_Block_Abstract|Mage_Core_Block_Abstract[]
      */
     public function getChild($name = '')
     {
         if ($name === '') {
             return $this->_children;
-        } elseif (isset($this->_children[$name])) {
-            return $this->_children[$name];
         }
 
-        return false;
+        return $this->_children[$name] ?? false;
     }
 
     /**
      * Retrieve child block HTML
      *
-     * @param   string $name
-     * @param   bool $useCache
-     * @param   bool $sorted
-     * @return  string
+     * @param  string $name
+     * @param  bool   $useCache
+     * @param  bool   $sorted
+     * @return string
      */
     public function getChildHtml($name = '', $useCache = true, $sorted = false)
     {
@@ -583,16 +583,16 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
             }
 
             return $out;
-        } else {
-            return $this->_getChildHtml($name, $useCache);
         }
+
+        return $this->_getChildHtml($name, $useCache);
     }
 
     /**
-     * @param string $name          Parent block name
-     * @param string $childName     OPTIONAL Child block name
-     * @param bool $useCache        OPTIONAL Use cache flag
-     * @param bool $sorted          OPTIONAL @see getChildHtml()
+     * @param  string $name      Parent block name
+     * @param  string $childName OPTIONAL Child block name
+     * @param  bool   $useCache  OPTIONAL Use cache flag
+     * @param  bool   $sorted    OPTIONAL @see getChildHtml()
      * @return string
      */
     public function getChildChildHtml($name, $childName = '', $useCache = true, $sorted = false)
@@ -627,9 +627,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve child block HTML
      *
-     * @param   string $name
-     * @param   bool $useCache
-     * @return  string
+     * @param  string $name
+     * @param  bool   $useCache
+     * @return string
      */
     protected function _getChildHtml($name, $useCache = true)
     {
@@ -653,16 +653,17 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Prepare child block before generate html
      *
-     * @param   string $name
-     * @param   Mage_Core_Block_Abstract $child
+     * @param string                   $name
+     * @param Mage_Core_Block_Abstract $child
      */
     protected function _beforeChildToHtml($name, $child) {}
 
     /**
      * Retrieve block html
      *
-     * @param   string $name
-     * @return  string
+     * @param  string              $name
+     * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBlockHtml($name)
     {
@@ -680,11 +681,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Insert child block
      *
-     * @param   Mage_Core_Block_Abstract|string $block
-     * @param   string $siblingName
-     * @param   bool $after
-     * @param   string $alias
-     * @return  object $this
+     * @param  Mage_Core_Block_Abstract|string $block
+     * @param  string                          $siblingName
+     * @param  bool                            $after
+     * @param  string                          $alias
+     * @return object                          $this
      */
     public function insert($block, $siblingName = '', $after = false, $alias = '')
     {
@@ -747,7 +748,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Sort block's children
      *
-     * @param bool $force force re-sort all children
+     * @param  bool  $force force re-sort all children
      * @return $this
      */
     public function sortChildren($force = false)
@@ -796,9 +797,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Append child block
      *
-     * @param   Mage_Core_Block_Abstract|string $block
-     * @param   string $alias
-     * @return  $this
+     * @param  Mage_Core_Block_Abstract|string $block
+     * @param  string                          $alias
+     * @return $this
      */
     public function append($block, $alias = '')
     {
@@ -825,7 +826,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Add self to the specified group of parent block
      *
-     * @param string $groupName
+     * @param  string $groupName
      * @return $this
      */
     public function addToParentGroup($groupName)
@@ -841,10 +842,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * or an array of <alias> => <callback_result>
      * The callback currently supports only $this methods and passes the alias as parameter
      *
-     * @param string $groupName
-     * @param string $callback
-     * @param bool $skipEmptyResults
+     * @param  string              $groupName
+     * @param  string              $callback
+     * @param  bool                $skipEmptyResults
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getChildGroup($groupName, $callback = null, $skipEmptyResults = true)
     {
@@ -874,8 +876,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Get a value from child block by specified key
      *
-     * @param string $alias
-     * @param string $key
+     * @param  string     $alias
+     * @param  string     $key
      * @return mixed|void
      */
     public function getChildData($alias, $key = '')
@@ -899,8 +901,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Specify block output frame tags
      *
-     * @param string $openTag
-     * @param string $closeTag
+     * @param  string $openTag
+     * @param  string $closeTag
      * @return $this
      */
     public function setFrameTags($openTag, $closeTag = null)
@@ -974,8 +976,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Processing block html after rendering
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
     protected function _afterToHtml($html)
     {
@@ -1017,9 +1019,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Generate url by route and parameters
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
     public function getUrl($route = '', $params = [])
     {
@@ -1030,7 +1032,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Generate security url by route and parameters (add form key if "Add Secret Key to URLs" disabled)
      *
      * @param string $route
-     * @param array $params
+     * @param array  $params
      *
      * @return string
      */
@@ -1046,9 +1048,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Generate base64-encoded url by route and parameters
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
     public function getUrlBase64($route = '', $params = [])
     {
@@ -1058,9 +1060,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Generate url-encoded url by route and parameters
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
     public function getUrlEncoded($route = '', $params = [])
     {
@@ -1070,8 +1072,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve url of skins file
      *
-     * @param   string $file path to file in skin
-     * @return  string
+     * @param  string    $file path to file in skin
+     * @return string
+     * @throws Exception
      */
     public function getSkinUrl($file = null, array $params = [])
     {
@@ -1095,7 +1098,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Set messages block
      *
-     * @return  $this
+     * @return $this
      */
     public function setMessagesBlock(Mage_Core_Block_Messages $block)
     {
@@ -1106,8 +1109,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Return block helper
      *
-     * @param string $type
+     * @param  string                   $type
      * @return Mage_Core_Block_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getHelper($type)
     {
@@ -1117,7 +1121,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Returns helper object
      *
-     * @param string $name
+     * @param  string                    $name
      * @return Mage_Core_Helper_Abstract
      */
     public function helper($name)
@@ -1132,9 +1136,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting date
      *
-     * @param null|int|string|Zend_Date $date
-     * @param string $format
-     * @param bool $showTime
+     * @param  null|int|string|Zend_Date $date
+     * @param  string                    $format
+     * @param  bool                      $showTime
      * @return string
      */
     public function formatDate($date = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showTime = false)
@@ -1163,10 +1167,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Retrieve formatting time
      *
-     * @param   string $time
-     * @param   string $format
-     * @param   bool $showDate
-     * @return  string
+     * @param  string $time
+     * @param  string $format
+     * @param  bool   $showDate
+     * @return string
      */
     public function formatTime($time = null, $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, $showDate = false)
     {
@@ -1209,8 +1213,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * @param array|string $data
-     * @param array $allowedTags
+     * @param  array|string $data
+     * @param  array        $allowedTags
      * @return string
      * @deprecated after 1.4.0.0-rc1
      * @see self::escapeHtml()
@@ -1223,8 +1227,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Escape html entities
      *
-     * @param string|string[] $data
-     * @param null|array $allowedTags
+     * @param  string|string[]      $data
+     * @param  null|array           $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
@@ -1247,8 +1251,8 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Wrapper for escapeHtml() function with keeping original value
      *
-     * @param string[] $data
-     * @param null|string[] $allowedTags
+     * @param  string[]                                     $data
+     * @param  null|string[]                                $allowedTags
      * @return Mage_Core_Model_Security_HtmlEscapedString[]
      *
      *  @see Mage_Core_Model_Security_HtmlEscapedString::getUnescapedValue()
@@ -1266,9 +1270,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
-     * @param string $data
-     * @param string $allowableTags
-     * @param bool $allowHtmlEntities
+     * @param  string $data
+     * @param  string $allowableTags
+     * @param  bool   $allowHtmlEntities
      * @return string
      */
     public function stripTags($data, $allowableTags = null, $allowHtmlEntities = false)
@@ -1277,7 +1281,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     }
 
     /**
-     * @param string $data
+     * @param  string $data
      * @return string
      * @deprecated after 1.4.0.0-rc1
      * @see self::escapeUrl()
@@ -1290,7 +1294,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Escape html entities in url
      *
-     * @param string $data
+     * @param  string $data
      * @return string
      */
     public function escapeUrl($data)
@@ -1303,7 +1307,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Use $addSlashes = false for escaping js that inside html attribute (onClick, onSubmit etc)
      *
      * @param  string $data
-     * @param  bool $addSlashes
+     * @param  bool   $addSlashes
      * @return string
      */
     public function quoteEscape($data, $addSlashes = false)
@@ -1314,9 +1318,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Escape quotes in java scripts
      *
-     * @param mixed $data
-     * @param string $quote
-     * @return mixed
+     * @param  mixed           $data
+     * @param  string          $quote
+     * @return string|string[]
      */
     public function jsQuoteEscape($data, $quote = "'")
     {
@@ -1359,7 +1363,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Replace URLs from cache
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     protected function _afterCacheUrl($html)
@@ -1430,7 +1434,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         }
 
         if (!isset($tags) || !is_array($tags) || empty($tags)) {
-            $tags = !$this->hasData(self::CACHE_TAGS_DATA_KEY) ? [] : $this->getData(self::CACHE_TAGS_DATA_KEY);
+            $tags = $this->hasData(self::CACHE_TAGS_DATA_KEY) ? $this->getData(self::CACHE_TAGS_DATA_KEY) : [];
             if (!in_array(self::CACHE_GROUP, $tags)) {
                 $tags[] = self::CACHE_GROUP;
             }
@@ -1442,14 +1446,14 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Add tag to block
      *
-     * @param array|string $tag
+     * @param  array|string $tag
      * @return $this
      */
     public function addCacheTag($tag)
     {
         $tag = is_array($tag) ? $tag : [$tag];
-        $tags = !$this->hasData(self::CACHE_TAGS_DATA_KEY)
-            ? $tag : array_merge($this->getData(self::CACHE_TAGS_DATA_KEY), $tag);
+        $tags = $this->hasData(self::CACHE_TAGS_DATA_KEY)
+            ? array_merge($this->getData(self::CACHE_TAGS_DATA_KEY), $tag) : $tag;
         $this->setData(self::CACHE_TAGS_DATA_KEY, $tags);
         return $this;
     }
@@ -1458,6 +1462,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Add tags from specified model to current block
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function addModelTags(Mage_Core_Model_Abstract $model)
     {
@@ -1509,7 +1514,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         $session = Mage::getSingleton('core/session');
         $cacheData = $this->_getApp()->loadCache($cacheKey);
         if ($cacheData) {
-            $cacheData = str_replace(
+            return str_replace(
                 $this->_getSidPlaceholder($cacheKey),
                 $session->getSessionIdQueryParam() . '=' . $session->getEncryptedSessionId(),
                 $cacheData,
@@ -1522,7 +1527,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Save block content to cache storage
      *
-     * @param string $data
+     * @param  string      $data
      * @return $this|false
      */
     protected function _saveCache($data)
@@ -1555,19 +1560,19 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     /**
      * Get cache key for tags
      *
-     * @param string $cacheKey
+     * @param  string $cacheKey
      * @return string
      */
     protected function _getTagsCacheKey($cacheKey = null)
     {
-        $cacheKey = !empty($cacheKey) ? $cacheKey : $this->getCacheKey();
+        $cacheKey = empty($cacheKey) ? $this->getCacheKey() : $cacheKey;
         return md5($cacheKey . '_tags');
     }
 
     /**
      * Get SID placeholder for cache
      *
-     * @param null|string $cacheKey
+     * @param  null|string $cacheKey
      * @return string
      */
     protected function _getSidPlaceholder($cacheKey = null)
@@ -1583,8 +1588,9 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Collect and retrieve items tags.
      * Item should implement Mage_Core_Model_Abstract::getCacheIdTags method
      *
-     * @param array|Varien_Data_Collection $items
+     * @param  array|Varien_Data_Collection $items
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getItemsTags($items)
     {
@@ -1606,6 +1612,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
      * Checks is request Url is secure
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isSecure()
     {

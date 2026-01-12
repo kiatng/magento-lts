@@ -12,27 +12,27 @@
  *
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Store _getResource()
+ * @method Mage_Core_Model_Resource_Store            _getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getCollection()
- * @method string getHomeUrl()
- * @method string getLanguageCode()
- * @method string getLocaleCode()
- * @method Mage_Core_Model_Resource_Store getResource()
+ * @method string                                    getHomeUrl()
+ * @method string                                    getLanguageCode()
+ * @method string                                    getLocaleCode()
+ * @method Mage_Core_Model_Resource_Store            getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getResourceCollection()
- * @method string getRootCategoryPath()
- * @method int getSortOrder()
- * @method int getStoreId()
- * @method $this setCode(string $value)
- * @method $this setGroupId(int $value)
- * @method $this setHomeUrl(string $value)
- * @method $this setIsActive(int $value)
- * @method $this setLocaleCode(string $value)
- * @method $this setName(string $value)
- * @method $this setRootCategory(Mage_Catalog_Model_Category $value)
- * @method $this setRootCategoryPath(string $value)
- * @method $this setSortOrder(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setWebsiteId(int $value)
+ * @method string                                    getRootCategoryPath()
+ * @method int                                       getSortOrder()
+ * @method int                                       getStoreId()
+ * @method $this                                     setCode(string $value)
+ * @method $this                                     setGroupId(int $value)
+ * @method $this                                     setHomeUrl(string $value)
+ * @method $this                                     setIsActive(int $value)
+ * @method $this                                     setLocaleCode(string $value)
+ * @method $this                                     setName(string $value)
+ * @method $this                                     setRootCategory(Mage_Catalog_Model_Category $value)
+ * @method $this                                     setRootCategoryPath(string $value)
+ * @method $this                                     setSortOrder(int $value)
+ * @method $this                                     setStoreId(int $value)
+ * @method $this                                     setWebsiteId(int $value)
  */
 class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 {
@@ -135,7 +135,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Cache flag
      *
-     * @var bool
+     * @var string|true
      */
     protected $_cacheTag    = true;
 
@@ -210,7 +210,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Session entity
      *
-     * @var Mage_Core_Model_Session_Abstract
+     * @var Mage_Core_Model_Session
      */
     protected $_session;
 
@@ -244,7 +244,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     private $_isReadOnly = false;
 
     /**
-     * Initialize object
+     * @inheritDoc
      */
     protected function _construct()
     {
@@ -271,8 +271,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     protected function _getSession()
     {
         if (!$this->_session) {
-            $this->_session = Mage::getModel('core/session')
+            /** @var Mage_Core_Model_Session $session */
+            $session = Mage::getModel('core/session')
                 ->init('store_' . $this->getCode());
+            $this->_session = $session;
         }
 
         return $this->_session;
@@ -294,8 +296,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Loading store configuration data
      *
-     * @param   string $code
-     * @return  $this
+     * @param  string              $code
+     * @return $this
+     * @throws Mage_Core_Exception
      */
     public function loadConfig($code)
     {
@@ -312,8 +315,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         if (!empty($store)) {
             $this->setCode($code);
-            $id = (int) $store->system->store->id;
-            $this->setId($id)->setStoreId($id);
+            $storeId = (int) $store->system->store->id;
+            $this->setId($storeId)->setStoreId($storeId);
             $this->setWebsiteId((int) $store->system->website->id);
         }
 
@@ -333,8 +336,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve store configuration data
      *
-     * @param   string $path
-     * @return  null|string
+     * @param  string      $path
+     * @return null|string
      */
     public function getConfig($path)
     {
@@ -417,7 +420,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     /**
      * Sets the internal configuration cache for this store view
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function setConfigCache($data)
@@ -431,8 +434,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * This value don't save in config
      *
-     * @param string $path
-     * @param mixed $value
+     * @param  string $path
+     * @param  mixed  $value
      * @return $this
      */
     public function setConfig($path, $value)
@@ -459,6 +462,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve store website
      *
      * @return false|Mage_Core_Model_Website
+     * @throws Mage_Core_Exception
      */
     public function getWebsite()
     {
@@ -476,9 +480,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Process config value
      *
-     * @param string $fullPath
-     * @param string $path
-     * @param Varien_Simplexml_Element $node
+     * @param  string                   $fullPath
+     * @param  string                   $path
+     * @param  Varien_Simplexml_Element $node
      * @return array|string
      */
     protected function _processConfigValue($fullPath, $path, $node)
@@ -489,8 +493,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
         if ($node->hasChildren()) {
             $aValue = [];
-            foreach ($node->children() as $k => $v) {
-                $aValue[$k] = $this->_processConfigValue($fullPath . '/' . $k, $path . '/' . $k, $v);
+            foreach ($node->children() as $key => $value) {
+                $aValue[$key] = $this->_processConfigValue($fullPath . '/' . $key, $path . '/' . $key, $value);
             }
 
             $this->_configCache[$path] = $aValue;
@@ -524,7 +528,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Convert config values for url paths
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      * @deprecated after 1.4.2.0
      */
@@ -566,9 +570,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve url using store configuration specific
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
     public function getUrl($route = '', $params = [])
     {
@@ -585,9 +589,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve base URL
      *
-     * @param self::URL_TYPE_* $type
-     * @param null|bool $secure
+     * @param  self::URL_TYPE_*    $type
+     * @param  null|bool           $secure
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getBaseUrl($type = self::URL_TYPE_LINK, $secure = null)
     {
@@ -640,8 +645,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Remove script file name from url in case when server rewrites are enabled
      *
-     * @param   string $url
-     * @return  string
+     * @param  string $url
+     * @return string
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _updatePathUseRewrites($url)
@@ -671,8 +676,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * If we use Database file storage and server doesn't support rewrites (.htaccess in media folder)
      * we have to put name of fetching media script exactly into URL
      *
-     * @param null|bool $secure
-     * @param string $type
+     * @param  null|bool $secure
+     * @param  string    $type
      * @return string
      */
     protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)
@@ -693,8 +698,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Add store code to url in case if it is enabled in configuration
      *
-     * @param   string $url
-     * @return  string
+     * @param  string $url
+     * @return string
      */
     protected function _updatePathUseStoreView($url)
     {
@@ -793,15 +798,16 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         $configValue = $this->getConfig(self::XML_PATH_PRICE_SCOPE);
         if ($configValue == self::PRICE_SCOPE_GLOBAL) {
             return Mage::app()->getBaseCurrencyCode();
-        } else {
-            return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
         }
+
+        return $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
     }
 
     /**
      * Retrieve store base currency
      *
      * @return Mage_Directory_Model_Currency
+     * @throws Mage_Core_Exception
      */
     public function getBaseCurrency()
     {
@@ -828,6 +834,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve store default currency
      *
      * @return Mage_Directory_Model_Currency
+     * @throws Mage_Core_Exception
      */
     public function getDefaultCurrency()
     {
@@ -843,8 +850,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Set current store currency code
      *
-     * @param   string $code
-     * @return  $this
+     * @param  string                             $code
+     * @return $this
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function setCurrentCurrencyCode($code)
     {
@@ -894,7 +903,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * If base currency is not allowed in current website config scope,
      * then it can be disabled with $skipBaseNotAllowed
      *
-     * @param bool $skipBaseNotAllowed
+     * @param  bool  $skipBaseNotAllowed
      * @return array
      */
     public function getAvailableCurrencyCodes($skipBaseNotAllowed = false)
@@ -931,6 +940,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve store current currency
      *
      * @return Mage_Directory_Model_Currency
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function getCurrentCurrency()
     {
@@ -955,6 +966,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve current currency rate
      *
      * @return float
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function getCurrentCurrencyRate()
     {
@@ -964,10 +977,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Convert price from default currency to current currency
      *
-     * @param   float $price
-     * @param   bool $format             Format price to currency format
-     * @param   bool $includeContainer   Enclose into <span class="price"><span>
-     * @return  float
+     * @param  float               $price
+     * @param  bool                $format           Format price to currency format
+     * @param  bool                $includeContainer Enclose into <span class="price"><span>
+     * @return float
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function convertPrice($price, $format = false, $includeContainer = true)
     {
@@ -978,7 +993,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
 
         if ($this->getCurrentCurrency() && $format) {
-            $value = $this->formatPrice($value, $includeContainer);
+            return $this->formatPrice($value, $includeContainer);
         }
 
         return $value;
@@ -987,7 +1002,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Round price
      *
-     * @param mixed $price
+     * @param  mixed $price
      * @return float
      */
     public function roundPrice($price)
@@ -1001,9 +1016,11 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Format price with currency filter (taking rate into consideration)
      *
-     * @param   float $price
-     * @param   bool $includeContainer
-     * @return  float|string
+     * @param  float                              $price
+     * @param  bool                               $includeContainer
+     * @return float|string
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function formatPrice($price, $includeContainer = true)
     {
@@ -1018,6 +1035,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Get store price filter
      *
      * @return Mage_Directory_Model_Currency_Filter|Varien_Filter_Sprintf
+     * @throws Mage_Core_Exception
+     * @throws Zend_Controller_Response_Exception
      */
     public function getPriceFilter()
     {
@@ -1039,6 +1058,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve root category identifier
      *
      * @return int
+     * @throws Mage_Core_Exception
      */
     public function getRootCategoryId()
     {
@@ -1063,6 +1083,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve group model
      *
      * @return false|Mage_Core_Model_Store_Group
+     * @throws Mage_Core_Exception
      */
     public function getGroup()
     {
@@ -1111,6 +1132,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Check if store can be deleted
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isCanDelete()
     {
@@ -1124,8 +1146,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve current url for store
      *
-     * @param bool|string $fromStore
+     * @param  bool|string                     $fromStore
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getCurrentUrl($fromStore = true)
     {
@@ -1153,8 +1176,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             unset($currQuery[$sidQueryParam]);
         }
 
-        foreach ($currQuery as $k => $v) {
-            $storeParsedQuery[$k] = $v;
+        foreach ($currQuery as $key => $value) {
+            $storeParsedQuery[$key] = $value;
         }
 
         if (!Mage::getStoreConfigFlag(self::XML_PATH_STORE_IN_URL, $this->getCode())) {
@@ -1221,6 +1244,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Init indexing process after store delete commit
      *
      * @return $this
+     * @throws Exception
      */
     protected function _afterDeleteCommit()
     {
@@ -1248,7 +1272,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get/Set isReadOnly flag
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function isReadOnly($value = null)
@@ -1264,12 +1288,13 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Retrieve storegroup name
      *
      * @return string
+     * @throws Mage_Core_Exception
      */
     public function getFrontendName()
     {
         if (is_null($this->_frontendName)) {
             $storeGroupName = (string) Mage::getStoreConfig(self::XML_PATH_STORE_STORE_NAME, $this);
-            $this->_frontendName = (!empty($storeGroupName)) ? $storeGroupName : $this->getGroup()->getName();
+            $this->_frontendName = (empty($storeGroupName)) ? $this->getGroup()->getName() : $storeGroupName;
         }
 
         return $this->_frontendName;

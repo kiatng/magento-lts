@@ -12,164 +12,164 @@
  *
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Payment _getResource()
- * @method string getAccountStatus()
- * @method string getAdditionalData()
- * @method string getAddressStatus()
- * @method float getAmountAuthorized()
- * @method float getAmountCanceled()
- * @method float getAmountOrdered()
- * @method float getAmountPaid()
- * @method float getAmountRefunded()
- * @method string getAnetTransMethod()
- * @method float getBaseAmountAuthorized()
- * @method float getBaseAmountCanceled()
- * @method float getBaseAmountOrdered()
- * @method float getBaseAmountPaid()
- * @method float getBaseAmountPaidOnline()
- * @method float getBaseAmountRefunded()
- * @method float getBaseAmountRefundedOnline()
- * @method float getBaseShippingAmount()
- * @method float getBaseShippingCaptured()
- * @method float getBaseShippingRefunded()
- * @method array getBillingAgreementData()
- * @method string getCcApproval()
- * @method string getCcAvsStatus()
- * @method string getCcCidStatus()
- * @method string getCcDebugRequestBody()
- * @method string getCcDebugResponseBody()
- * @method string getCcDebugResponseSerialized()
- * @method string getCcExpMonth()
- * @method string getCcExpYear()
- * @method string getCcLast4()
- * @method string getCcNumberEnc()
- * @method string getCcOwner()
- * @method string getCcSecureVerify()
- * @method string getCcSsIssue()
- * @method string getCcSsStartMonth()
- * @method string getCcSsStartYear()
- * @method string getCcStatus()
- * @method string getCcStatusDescription()
- * @method string getCcTransId()
- * @method string getCcType()
+ * @method Mage_Sales_Model_Resource_Order_Payment            _getResource()
+ * @method string                                             getAccountStatus()
+ * @method string                                             getAdditionalData()
+ * @method string                                             getAddressStatus()
+ * @method float                                              getAmountAuthorized()
+ * @method float                                              getAmountCanceled()
+ * @method float                                              getAmountOrdered()
+ * @method float                                              getAmountPaid()
+ * @method float                                              getAmountRefunded()
+ * @method string                                             getAnetTransMethod()
+ * @method float                                              getBaseAmountAuthorized()
+ * @method float                                              getBaseAmountCanceled()
+ * @method float                                              getBaseAmountOrdered()
+ * @method float                                              getBaseAmountPaid()
+ * @method float                                              getBaseAmountPaidOnline()
+ * @method float                                              getBaseAmountRefunded()
+ * @method float                                              getBaseAmountRefundedOnline()
+ * @method float                                              getBaseShippingAmount()
+ * @method float                                              getBaseShippingCaptured()
+ * @method float                                              getBaseShippingRefunded()
+ * @method array                                              getBillingAgreementData()
+ * @method string                                             getCcApproval()
+ * @method string                                             getCcAvsStatus()
+ * @method string                                             getCcCidStatus()
+ * @method string                                             getCcDebugRequestBody()
+ * @method string                                             getCcDebugResponseBody()
+ * @method string                                             getCcDebugResponseSerialized()
+ * @method string                                             getCcExpMonth()
+ * @method string                                             getCcExpYear()
+ * @method string                                             getCcLast4()
+ * @method string                                             getCcNumberEnc()
+ * @method string                                             getCcOwner()
+ * @method string                                             getCcSecureVerify()
+ * @method string                                             getCcSsIssue()
+ * @method string                                             getCcSsStartMonth()
+ * @method string                                             getCcSsStartYear()
+ * @method string                                             getCcStatus()
+ * @method string                                             getCcStatusDescription()
+ * @method string                                             getCcTransId()
+ * @method string                                             getCcType()
  * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()
- * @method string getCurrencyCode()
- * @method int getCustomerPaymentId()
- * @method string getCybersourceToken()
- * @method string getEcheckAccountName()
- * @method string getEcheckAccountType()
- * @method string getEcheckBankName()
- * @method string getEcheckRoutingNumber()
- * @method string getEcheckType()
- * @method string getFlo2cashAccountId()
- * @method string getForcedState()
- * @method string getIdealIssuerId()
- * @method string getIdealIssuerTitle()
- * @method int getIdealTransactionChecked()
- * @method int getIncrementId()
- * @method bool getIsFraudDetected()
- * @method bool getIsTransactionApproved()
- * @method bool getIsTransactionClosed()
- * @method bool getIsTransactionDenied()
- * @method bool getIsTransactionPending()
- * @method string getLastTransId()
- * @method string getMessage()
- * @method string getMethod()
- * @method bool getNotificationResult()
- * @method int getParentId()
- * @method string getParentTransactionId()
- * @method string getPayboxQuestionNumber()
- * @method string getPayboxRequestNumber()
- * @method string getPoNumber()
- * @method string getPreparedMessage()
- * @method string getProtectionEligibility()
- * @method int getQuotePaymentId()
- * @method Mage_Sales_Model_Resource_Order_Payment getResource()
+ * @method string                                             getCurrencyCode()
+ * @method int                                                getCustomerPaymentId()
+ * @method string                                             getCybersourceToken()
+ * @method string                                             getEcheckAccountName()
+ * @method string                                             getEcheckAccountType()
+ * @method string                                             getEcheckBankName()
+ * @method string                                             getEcheckRoutingNumber()
+ * @method string                                             getEcheckType()
+ * @method string                                             getFlo2cashAccountId()
+ * @method string                                             getForcedState()
+ * @method string                                             getIdealIssuerId()
+ * @method string                                             getIdealIssuerTitle()
+ * @method int                                                getIdealTransactionChecked()
+ * @method int                                                getIncrementId()
+ * @method bool                                               getIsFraudDetected()
+ * @method bool                                               getIsTransactionApproved()
+ * @method bool                                               getIsTransactionClosed()
+ * @method bool                                               getIsTransactionDenied()
+ * @method bool                                               getIsTransactionPending()
+ * @method string                                             getLastTransId()
+ * @method string                                             getMessage()
+ * @method string                                             getMethod()
+ * @method bool                                               getNotificationResult()
+ * @method int                                                getParentId()
+ * @method string                                             getParentTransactionId()
+ * @method string                                             getPayboxQuestionNumber()
+ * @method string                                             getPayboxRequestNumber()
+ * @method string                                             getPoNumber()
+ * @method string                                             getPreparedMessage()
+ * @method string                                             getProtectionEligibility()
+ * @method int                                                getQuotePaymentId()
+ * @method Mage_Sales_Model_Resource_Order_Payment            getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Collection getResourceCollection()
- * @method float getShippingAmount()
- * @method float getShippingCaptured()
- * @method float getShippingRefunded()
- * @method bool getShouldCloseParentTransaction()
- * @method bool getSkipOrderProcessing()
- * @method bool getSkipTransactionCreation()
- * @method int getStoreId()
- * @method string getTransactionId()
- * @method bool hasForcedState()
- * @method bool hasIsTransactionClosed()
- * @method bool hasMessage()
- * @method $this setAccountStatus(string $value)
- * @method $this setAdditionalData(string $value)
- * @method $this setAddressStatus(string $value)
- * @method $this setAmountAuthorized(float $value)
- * @method $this setAmountCanceled(float $value)
- * @method $this setAmountOrdered(float $value)
- * @method $this setAmountPaid(float $value)
- * @method $this setAmountRefunded(float $value)
- * @method $this setAnetTransMethod(string $value)
- * @method $this setBaseAmountAuthorized(float $value)
- * @method $this setBaseAmountCanceled(float $value)
- * @method $this setBaseAmountOrdered(float $value)
- * @method $this setBaseAmountPaid(float $value)
- * @method $this setBaseAmountPaidOnline(float $value)
- * @method $this setBaseAmountRefunded(float $value)
- * @method $this setBaseAmountRefundedOnline(float $value)
- * @method $this setBaseShippingAmount(float $value)
- * @method $this setBaseShippingCaptured(float $value)
- * @method $this setBaseShippingRefunded(float $value)
- * @method $this setCcApproval(string $value)
- * @method $this setCcAvsStatus(string $value)
- * @method $this setCcCidStatus(string $value)
- * @method $this setCcDebugRequestBody(string $value)
- * @method $this setCcDebugResponseBody(string $value)
- * @method $this setCcDebugResponseSerialized(string $value)
- * @method $this setCcExpMonth(string $value)
- * @method $this setCcExpYear(string $value)
- * @method $this setCcLast4(string $value)
- * @method $this setCcNumberEnc(string $value)
- * @method $this setCcOwner(string $value)
- * @method $this setCcSecureVerify(string $value)
- * @method $this setCcSsIssue(string $value)
- * @method $this setCcSsStartMonth(string $value)
- * @method $this setCcSsStartYear(string $value)
- * @method $this setCcStatus(string $value)
- * @method $this setCcStatusDescription(string $value)
- * @method $this setCcTransId(string $value)
- * @method $this setCcType(string $value)
- * @method $this setCreatedCreditmemo(Mage_Sales_Model_Order_Creditmemo $value)
- * @method $this setCreatedInvoice(Mage_Sales_Model_Order_Invoice $invoice)
- * @method $this setCreatedTransaction(Mage_Sales_Model_Order_Payment_Transaction $value)
- * @method $this setCreditmemo(Mage_Sales_Model_Order_Creditmemo $value)
- * @method $this setCustomerPaymentId(int $value)
- * @method $this setCybersourceToken(string $value)
- * @method $this setEcheckAccountName(string $value)
- * @method $this setEcheckAccountType(string $value)
- * @method $this setEcheckBankName(string $value)
- * @method $this setEcheckRoutingNumber(string $value)
- * @method $this setEcheckType(string $value)
- * @method $this setFlo2cashAccountId(string $value)
- * @method $this setIdealIssuerId(string $value)
- * @method $this setIdealIssuerTitle(string $value)
- * @method $this setIdealTransactionChecked(int $value)
- * @method $this setIsFraudDetected(bool $value)
- * @method $this setLastTransId(string $value)
- * @method $this setMessage(string $value)
- * @method $this setMethod(string $value)
- * @method $this setParentId(int $value)
- * @method $this setParentTransactionId(string $value)
- * @method $this setPayboxQuestionNumber(string $value)
- * @method $this setPayboxRequestNumber(string $value)
- * @method $this setPoNumber(string $value)
- * @method $this setProtectionEligibility(string $value)
- * @method $this setQuotePaymentId(int $value)
- * @method $this setRefundTransactionId(string $value)
- * @method $this setShippingAmount(float $value)
- * @method $this setShippingCaptured(float $value)
- * @method $this setShippingRefunded(float $value)
- * @method $this setShouldCloseParentTransaction(bool $value)
- * @method $this setStoreId(int $value)
- * @method $this setTransactionId(string $value)
- * @method $this setVoidTransactionId(string $value)
- * @method $this unsTransactionId()
+ * @method float                                              getShippingAmount()
+ * @method float                                              getShippingCaptured()
+ * @method float                                              getShippingRefunded()
+ * @method bool                                               getShouldCloseParentTransaction()
+ * @method bool                                               getSkipOrderProcessing()
+ * @method bool                                               getSkipTransactionCreation()
+ * @method int                                                getStoreId()
+ * @method string                                             getTransactionId()
+ * @method bool                                               hasForcedState()
+ * @method bool                                               hasIsTransactionClosed()
+ * @method bool                                               hasMessage()
+ * @method $this                                              setAccountStatus(string $value)
+ * @method $this                                              setAdditionalData(string $value)
+ * @method $this                                              setAddressStatus(string $value)
+ * @method $this                                              setAmountAuthorized(float $value)
+ * @method $this                                              setAmountCanceled(float $value)
+ * @method $this                                              setAmountOrdered(float $value)
+ * @method $this                                              setAmountPaid(float $value)
+ * @method $this                                              setAmountRefunded(float $value)
+ * @method $this                                              setAnetTransMethod(string $value)
+ * @method $this                                              setBaseAmountAuthorized(float $value)
+ * @method $this                                              setBaseAmountCanceled(float $value)
+ * @method $this                                              setBaseAmountOrdered(float $value)
+ * @method $this                                              setBaseAmountPaid(float $value)
+ * @method $this                                              setBaseAmountPaidOnline(float $value)
+ * @method $this                                              setBaseAmountRefunded(float $value)
+ * @method $this                                              setBaseAmountRefundedOnline(float $value)
+ * @method $this                                              setBaseShippingAmount(float $value)
+ * @method $this                                              setBaseShippingCaptured(float $value)
+ * @method $this                                              setBaseShippingRefunded(float $value)
+ * @method $this                                              setCcApproval(string $value)
+ * @method $this                                              setCcAvsStatus(string $value)
+ * @method $this                                              setCcCidStatus(string $value)
+ * @method $this                                              setCcDebugRequestBody(string $value)
+ * @method $this                                              setCcDebugResponseBody(string $value)
+ * @method $this                                              setCcDebugResponseSerialized(string $value)
+ * @method $this                                              setCcExpMonth(string $value)
+ * @method $this                                              setCcExpYear(string $value)
+ * @method $this                                              setCcLast4(string $value)
+ * @method $this                                              setCcNumberEnc(string $value)
+ * @method $this                                              setCcOwner(string $value)
+ * @method $this                                              setCcSecureVerify(string $value)
+ * @method $this                                              setCcSsIssue(string $value)
+ * @method $this                                              setCcSsStartMonth(string $value)
+ * @method $this                                              setCcSsStartYear(string $value)
+ * @method $this                                              setCcStatus(string $value)
+ * @method $this                                              setCcStatusDescription(string $value)
+ * @method $this                                              setCcTransId(string $value)
+ * @method $this                                              setCcType(string $value)
+ * @method $this                                              setCreatedCreditmemo(Mage_Sales_Model_Order_Creditmemo $value)
+ * @method $this                                              setCreatedInvoice(Mage_Sales_Model_Order_Invoice $invoice)
+ * @method $this                                              setCreatedTransaction(Mage_Sales_Model_Order_Payment_Transaction $value)
+ * @method $this                                              setCreditmemo(Mage_Sales_Model_Order_Creditmemo $value)
+ * @method $this                                              setCustomerPaymentId(int $value)
+ * @method $this                                              setCybersourceToken(string $value)
+ * @method $this                                              setEcheckAccountName(string $value)
+ * @method $this                                              setEcheckAccountType(string $value)
+ * @method $this                                              setEcheckBankName(string $value)
+ * @method $this                                              setEcheckRoutingNumber(string $value)
+ * @method $this                                              setEcheckType(string $value)
+ * @method $this                                              setFlo2cashAccountId(string $value)
+ * @method $this                                              setIdealIssuerId(string $value)
+ * @method $this                                              setIdealIssuerTitle(string $value)
+ * @method $this                                              setIdealTransactionChecked(int $value)
+ * @method $this                                              setIsFraudDetected(bool $value)
+ * @method $this                                              setLastTransId(string $value)
+ * @method $this                                              setMessage(string $value)
+ * @method $this                                              setMethod(string $value)
+ * @method $this                                              setParentId(int $value)
+ * @method $this                                              setParentTransactionId(string $value)
+ * @method $this                                              setPayboxQuestionNumber(string $value)
+ * @method $this                                              setPayboxRequestNumber(string $value)
+ * @method $this                                              setPoNumber(string $value)
+ * @method $this                                              setProtectionEligibility(string $value)
+ * @method $this                                              setQuotePaymentId(int $value)
+ * @method $this                                              setRefundTransactionId(string $value)
+ * @method $this                                              setShippingAmount(float $value)
+ * @method $this                                              setShippingCaptured(float $value)
+ * @method $this                                              setShippingRefunded(float $value)
+ * @method $this                                              setShouldCloseParentTransaction(bool $value)
+ * @method $this                                              setStoreId(int $value)
+ * @method $this                                              setTransactionId(string $value)
+ * @method $this                                              setVoidTransactionId(string $value)
+ * @method $this                                              unsTransactionId()
  */
 class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 {
@@ -206,13 +206,15 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Whether can void
-     * @var string
+     *
+     * @var bool
      */
     protected $_canVoidLookup = null;
 
     /**
      * Transactions registry to spare resource calls
      * array(txn_id => sales/order_payment_transaction)
+     *
      * @var array
      */
     protected $_transactionsLookup = [];
@@ -234,6 +236,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      */
     protected $_transactionAdditionalInfo = [];
 
+    /**
+     * @inheritDoc
+     */
     protected function _construct()
     {
         $this->_init('sales/order_payment');
@@ -242,7 +247,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Declare order model object
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -264,6 +269,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check order payment capture action availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canCapture()
     {
@@ -287,6 +293,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether refund could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canRefund()
     {
@@ -297,6 +304,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether partial refund could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canRefundPartialPerInvoice()
     {
@@ -307,6 +315,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether partial capture could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canCapturePartial()
     {
@@ -318,6 +327,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * This method is supposed to be called only when order is placed
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function place()
     {
@@ -416,7 +426,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * TODO: eliminate logic duplication with registerCaptureNotification()
      *
-     * @param null|Mage_Sales_Model_Order_Invoice $invoice
+     * @param  null|Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -508,9 +518,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * TODO: eliminate logic duplication with capture()
      *
-     * @param float $amount
-     * @param bool $skipFraudDetection
+     * @param  float               $amount
+     * @param  bool                $skipFraudDetection
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function registerCaptureNotification($amount, $skipFraudDetection = false)
     {
@@ -575,8 +586,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Process authorization notification
      *
-     * @param float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      * @see self::_authorize()
      */
     public function registerAuthorizationNotification($amount)
@@ -587,7 +599,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Register payment fact: update self totals from the invoice
      *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      */
     public function pay($invoice)
@@ -605,7 +617,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Cancel specified invoice: update self totals from it
      *
-     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
      * @return $this
      */
     public function cancelInvoice($invoice)
@@ -625,6 +637,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * register this invoice and capture
      *
      * @return Mage_Sales_Model_Order_Invoice
+     * @throws Mage_Core_Exception
      */
     protected function _invoice()
     {
@@ -662,6 +675,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Void payment online
      *
      * @return $this
+     * @throws Mage_Core_Exception
      * @see self::_void()
      */
     public function void(Varien_Object $document)
@@ -674,8 +688,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Process void notification
      *
-     * @param float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      * @see self::_void()
      */
     public function registerVoidNotification($amount = null)
@@ -692,8 +707,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Updates transactions hierarchy, if required
      * Updates payment totals, updates order status and adds proper comments
      *
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function refund($creditmemo)
     {
@@ -723,12 +739,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                         ->refund($this, $baseAmountToRefund)
                         ->processCreditmemo($creditmemo, $this)
                     ;
-                } catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception $mageCoreException) {
                     if (!$captureTxn) {
-                        $e->setMessage(' ' . Mage::helper('sales')->__('If the invoice was created offline, try creating an offline creditmemo.'), true);
+                        $mageCoreException->setMessage(' ' . Mage::helper('sales')->__('If the invoice was created offline, try creating an offline creditmemo.'), true);
                     }
 
-                    throw $e;
+                    throw $mageCoreException;
                 }
             }
         }
@@ -773,8 +789,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *       then we should create a creditmemo from invoice and also refund it offline
      * TODO: implement logic of chargebacks reimbursements (via negative amount)
      *
-     * @param float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     public function registerRefundNotification($amount)
     {
@@ -868,7 +887,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Cancel a credit memo: subtract its totals from the payment
      *
-     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
+     * @param  Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return $this
      */
     public function cancelCreditmemo($creditmemo)
@@ -889,7 +908,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Order cancellation hook for payment method instance
      * Adds void transaction if needed
+     *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function cancel()
     {
@@ -916,6 +937,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check order payment review availability
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canReviewPayment()
     {
@@ -926,6 +948,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Check whether fetching info of transaction could be done
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function canFetchTransactionInfo()
     {
@@ -936,6 +959,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Accept online a payment that is in review state
      *
      * @return $this
+     * @throws Exception
      */
     public function accept()
     {
@@ -947,6 +971,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Accept order with payment method instance
      *
      * @return $this
+     * @throws Exception
      */
     public function deny()
     {
@@ -959,9 +984,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * Sets order to processing state and optionally approves invoice or cancels the order
      *
-     * @param string $action
-     * @param bool $isOnline
+     * @param  string              $action
+     * @param  bool                $isOnline
      * @return $this
+     * @throws Exception
+     * @throws Mage_Core_Exception
      */
     public function registerPaymentReviewAction($action, $isOnline)
     {
@@ -1071,8 +1098,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Prevents transaction double processing
      * Updates payment totals, updates order status and adds proper comments
      *
-     * @param float $amount
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _order($amount)
     {
@@ -1115,9 +1143,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Prevents transaction double processing
      * Updates payment totals, updates order status and adds proper comments
      *
-     * @param bool $isOnline
-     * @param float $amount
+     * @param  bool                $isOnline
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _authorize($isOnline, $amount)
     {
@@ -1172,9 +1201,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Public access to _authorize method
-     * @param bool $isOnline
-     * @param float $amount
+     * @param  bool                $isOnline
+     * @param  float               $amount
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function authorize($isOnline, $amount)
     {
@@ -1187,10 +1217,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *       the amount void amount, for informational purposes.
      * Updates payment totals, updates order status and adds proper comments
      *
-     * @param bool $isOnline
-     * @param float $amount
-     * @param string $gatewayCallback
+     * @param  bool                $isOnline
+     * @param  float               $amount
+     * @param  string              $gatewayCallback
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _void($isOnline, $amount = null, $gatewayCallback = 'void')
     {
@@ -1261,10 +1292,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      *
      * To make sure transaction object won't cause trouble before saving, use $failsafe = true
      *
-     * @param string $type
-     * @param Mage_Sales_Model_Abstract $salesDocument
-     * @param bool $failsafe
+     * @param  string                                               $type
+     * @param  Mage_Sales_Model_Abstract                            $salesDocument
+     * @param  bool                                                 $failsafe
      * @return null|Mage_Sales_Model_Order_Payment_Transaction|void
+     * @throws Mage_Core_Exception
      */
     protected function _addTransaction($type, $salesDocument = null, $failsafe = false)
     {
@@ -1335,11 +1367,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Public access to _addTransaction method
      *
-     * @param string $type
-     * @param Mage_Sales_Model_Abstract $salesDocument
-     * @param bool $failsafe
-     * @param false|string $message
+     * @param  string                                          $type
+     * @param  Mage_Sales_Model_Abstract                       $salesDocument
+     * @param  bool                                            $failsafe
+     * @param  false|string                                    $message
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function addTransaction($type, $salesDocument = null, $failsafe = false, $message = false)
     {
@@ -1358,6 +1391,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Import details data of specified transaction
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function importTransactionInfo(Mage_Sales_Model_Order_Payment_Transaction $transactionTo)
     {
@@ -1401,7 +1435,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Prevent double processing of the same transaction by a payment notification
      * Uses either specified txn_id or the transaction id that was set before
      *
-     * @param string $txnId
+     * @param  string              $txnId
      * @throws Mage_Core_Exception
      * @deprecated after 1.4.0.1
      */
@@ -1417,8 +1451,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Check transaction existence by specified transaction id
      *
-     * @param string $txnId
+     * @param  string              $txnId
      * @return bool
+     * @throws Mage_Core_Exception
      */
     protected function _isTransactionExists($txnId = null)
     {
@@ -1432,8 +1467,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Append transaction ID (if any) message to the specified message
      *
-     * @param null|Mage_Sales_Model_Order_Payment_Transaction|string $transaction
-     * @param string $message
+     * @param  null|Mage_Sales_Model_Order_Payment_Transaction|string $transaction
+     * @param  string                                                 $message
      * @return string
      */
     protected function _appendTransactionToMessage($transaction, $message)
@@ -1450,7 +1485,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Prepend a "prepared_message" that may be set to the payment instance before, to the specified message
      * Prepends value to the specified string or to the comment of specified order status history item instance
      *
-     * @param Mage_Sales_Model_Order_Status_History|string $messagePrependTo
+     * @param  Mage_Sales_Model_Order_Status_History|string $messagePrependTo
      * @return Mage_Sales_Model_Order_Status_History|string
      */
     protected function _prependMessage($messagePrependTo)
@@ -1459,8 +1494,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($preparedMessage) {
             if (is_string($preparedMessage)) {
                 return $preparedMessage . ' ' . $messagePrependTo;
-            } elseif ($preparedMessage instanceof Mage_Sales_Model_Order_Status_History
-            ) {
+            }
+
+            if ($preparedMessage instanceof Mage_Sales_Model_Order_Status_History) {
                 $comment = $preparedMessage->getComment() . ' ' . $messagePrependTo;
                 $preparedMessage->setComment($comment);
                 return $comment;
@@ -1473,20 +1509,20 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Round up and cast specified amount to float or string
      *
-     * @param float|string $amount
-     * @param bool $asFloat
+     * @param  float|string $amount
+     * @param  bool         $asFloat
      * @return float|string
      */
     protected function _formatAmount($amount, $asFloat = false)
     {
         $amount = Mage::app()->getStore()->roundPrice($amount);
-        return !$asFloat ? (string) $amount : $amount;
+        return $asFloat ? $amount : (string) $amount;
     }
 
     /**
      * Format price with currency sign
-     * @param float $amount
-     * @param null|string $currency
+     * @param  float       $amount
+     * @param  null|string $currency
      * @return string
      */
     protected function _formatPrice($amount, $currency = null)
@@ -1499,9 +1535,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
-     * @param null|false|string $txnId
-     * @param false|string $txnType
+     *
+     * @param  null|false|string                                $txnId
+     * @param  false|string                                     $txnType
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     protected function _lookupTransaction($txnId, $txnType = false)
     {
@@ -1542,9 +1580,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Find one transaction by ID or type
-     * @param false|string $txnId
-     * @param false|string $txnType
+     *
+     * @param  false|string                                     $txnId
+     * @param  false|string                                     $txnType
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function lookupTransaction($txnId, $txnType = false)
     {
@@ -1553,7 +1593,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Lookup an authorization transaction using parent transaction id, if set
+     *
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function getAuthorizationTransaction()
     {
@@ -1564,7 +1606,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         }
 
         if (!$txn) {
-            $txn = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
+            return $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
         }
 
         return $txn;
@@ -1572,8 +1614,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Lookup the transaction by id
-     * @param string $transactionId
+     *
+     * @param  string                                           $transactionId
      * @return false|Mage_Sales_Model_Order_Payment_Transaction
+     * @throws Mage_Core_Exception
      */
     public function getTransaction($transactionId)
     {
@@ -1584,7 +1628,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Update transaction ids for further processing
      * If no transactions were set before invoking, may generate an "offline" transaction id
      *
-     * @param string $type
+     * @param string                                           $type
      * @param false|Mage_Sales_Model_Order_Payment_Transaction $transactionBasedOn
      */
     protected function _generateTransactionId($type, $transactionBasedOn = false)
@@ -1602,7 +1646,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
     /**
      * Decide whether authorization transaction may close (if the amount to capture will cover entire order)
-     * @param float $amountToCapture
+     * @param  float $amountToCapture
      * @return bool
      */
     protected function _isCaptureFinal($amountToCapture)
@@ -1634,6 +1678,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Before object save manipulations
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -1686,7 +1731,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Additional transaction info getter
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getTransactionAdditionalInfo($key = null)
@@ -1712,7 +1757,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
     /**
      * Return invoice model for transaction
      *
-     * @param string $transactionId
+     * @param  string                               $transactionId
      * @return false|Mage_Sales_Model_Order_Invoice
      */
     protected function _getInvoiceForTransactionId($transactionId)

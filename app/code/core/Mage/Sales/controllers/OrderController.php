@@ -22,7 +22,6 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     public function preDispatch()
     {
         parent::preDispatch();
-        $action = $this->getRequest()->getActionName();
         $loginUrl = Mage::helper('customer')->getLoginUrl();
 
         if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
@@ -52,8 +51,8 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
     /**
      * Check osCommerce order view availability
      *
-     * @param   array $order
-     * @return  bool
+     * @param  array $order
+     * @return bool
      * @deprecated after 1.6.0.0
      */
     protected function _canViewOscommerceOrder($order)
